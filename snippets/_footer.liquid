@@ -1,12 +1,8 @@
-{% assign screen_width = site.settings.screen_width.value |  default: 'max-w-screen-xl' %}
 
 <footer class="border-t text-slate-800 dark:bg-slate-900 dark:text-slate-200 border-slate-200 dark:border-gray-700 print:hidden">
-  {% # 自定义导航菜单 %}
-  <div class="mx-auto {{ screen_width }} p-4 space-x-2">
-    {{ site.settings.footer_menu_html }}
-  </div>
+
   {% # 底部备案和链接 %}
-  <div class="mx-auto {{ screen_width }} p-4 sm:p-6">
+  <div class="mx-auto max-w-7xl p-1 sm:p-3">
     <div class="sm:flex sm:items-center sm:justify-between">
       <div class="flex space-x-2 text-sm text-gray-500 sm:text-center dark:text-gray-400">
         <a href="{{site.index_path}}" class="flex items-center">
@@ -15,7 +11,11 @@
           <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">{{ site.name }}</span>
         </a>
       </div>
-      <div class="hidden mt-4 space-x-6 sm:flex sm:justify-center sm:mt-0">
+      <div>
+        {% # 自定义导航菜单 %}
+        {{ site.settings.footer_menu_html }}
+      </div>
+      <div class="hidden space-x-6 sm:flex sm:justify-center sm:mt-0">
         <div>©  {{ site.settings.company_name }}<span class="md:hidden lg:inline"> {{ 'generic.copyright' | t }}.</span></div>
         <a href="https://beian.miit.gov.cn/#" target="_blank" class="hidden hover:underline md:block">{{ site.settings.copyright_info }}</a>
       </div>

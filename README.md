@@ -1,12 +1,17 @@
-# Baklib Wiki Template
+# Baklib knowledge Template
 
-Content synchronized from knowledge base, for Large-scale reusable document content management, like Wiki, Documentation, and content portal.
+A multiple page wiki template which includes faqs, cards, knowledge dashboard and documentations.
 
-Knowledge base template deployed by Baklib WIKI.
+Wiki template deployed by Baklib.
 
-![Baklib CMS based index theme](./assets/images/theme/index-help-center.png)
-![Baklib CMS based page theme](./assets/images/theme/index-docs.png)
-![Baklib CMS based page theme](./assets/images/theme/page.png)
+![Baklib CMS based index theme](./assets/images/theme/faq-simple.png)
+![Baklib CMS based index theme](./assets/images/theme/faq-toggle.png)
+![Baklib CMS based index theme](./assets/images/theme/faq-toogle-cards.png)
+![Baklib CMS based index theme](./assets/images/theme/knowledge-dashboard-alternative.png)
+![Baklib CMS based index theme](./assets/images/theme/knowledge-dashboard.png)
+![Baklib CMS based index theme](./assets/images/theme/knowledge-page.png)
+![Baklib CMS based index theme](./assets/images/theme/page.png)
+
 
 ## 🚀 Project Structure
 
@@ -16,12 +21,11 @@ Knowledge base template deployed by Baklib WIKI.
   ├── config
   │   └── settings_schema.json
   ├── layout
-  │   ├── error.liquid
   │   └── theme.liquid
   ├── package-lock.json
   ├── package.json
   ├── snippets
-  │   ├── _breadcrumb copy.liquid
+  │   ├── _aside.liquid
   │   ├── _breadcrumb.liquid
   │   ├── _custom_menu.liquid
   │   ├── _export_page.liquid
@@ -29,22 +33,30 @@ Knowledge base template deployed by Baklib WIKI.
   │   ├── _feedback_form.liquid
   │   ├── _footer.liquid
   │   ├── _header.liquid
-  │   ├── _index_tree.liquid
   │   ├── _page.liquid
   │   ├── _page_list.liquid
   │   ├── _paginate.liquid
   │   ├── _plugins.liquid
+  │   ├── _popular_pages.liquid
   │   ├── _sidebar.liquid
   │   ├── _tag.liquid
   │   └── _tree.liquid
   ├── statics
-  │   └── about.liquid
+  │   ├── about.liquid
+  │   ├── faq-item.liquid
+  │   ├── faq-simple.liquid
+  │   ├── faq-toggle-cards.liquid
+  │   ├── faq-toggle.liquid
+  │   ├── knowledge-dashboard-alternative.liquid
+  │   ├── knowledge-dashboard.liquid
+  │   └── knowledge-page.liquid
   ├── tailwind.config.js
   ├── templates
   │   ├── index.docs.liquid
-  │   ├── index.help_center.liquid
-  │   ├── index.list.liquid
+  │   ├── index.faqs.liquid
+  │   ├── index.pages.liquid
   │   ├── nav_tree.liquid
+  │   ├── page.channel.liquid
   │   ├── page.export.liquid
   │   ├── page.liquid
   │   ├── search.liquid
@@ -56,7 +68,7 @@ Knowledge base template deployed by Baklib WIKI.
 
 ## 🧞 Install guide
 
-- The Template install Guide: https://help.baklib.cn/themes/wiki
+- The Template install Guide: https://help.baklib.cn/themes/knowledge
 
 - The Baklib template install Guide: https://dev.baklib.cn/guide/git
 

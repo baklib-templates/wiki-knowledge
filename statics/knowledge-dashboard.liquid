@@ -1,0 +1,745 @@
+
+  <main class="flex flex-row min-h-screen bg-gray-100">
+    <div class="flex">
+      <aside x-ref="sidebar" class="flex flex-wrap flex-shrink" @click.away="mobileMenu = false"
+        @resize.debounce.100.window="forceSmallMenu()" x-data="{ 
+        smallMenu: JSON.parse(localStorage.getItem('smallMenu')),
+        mobileMenu: false,
+        forceSmallMenu() { this.smallMenu = window.innerWidth < 1280, this.mobileMenu = !window.innerWidth > 640}, 
+        isInUrl($string) { return window.location.href.match($string) },    
+      }" x-init="
+        $watch('smallMenu', (val) => localStorage.setItem('smallMenu', val));
+        $refs.sidebar.classList.remove('overflow-hidden');
+        forceSmallMenu();
+      ">
+
+        <button @click="[mobileMenu = true, smallMenu = false]" type="button"
+          class="absolute flex items-center justify-center w-8 h-8 p-1 text-gray-400 transition-colors duration-300 bg-white rounded-full sm:hidden top-4 left-4 hover:bg-gray-100">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <span class="sr-only">Open Menu</span>
+        </button>
+
+        <!-- small variant -->
+        <div x-data="{ hoverMenu: false }"
+          class="top-0 z-20 hidden w-16 h-full text-gray-400 transition-transform duration-500 bg-gray-800 sm:block "
+          :class="[(smallMenu ? 'translate-x-0 relative md:relative' : '-translate-x-16 absolute w-0 overflow-hidden') ]"
+          x-cloak>
+          <div class="flex justify-between px-4 py-3 bg-gray-900 bg-opacity-90">
+            <button @click="smallMenu = false"
+              class="flex items-center justify-center p-2 transition-all bg-transparent rounded-full hover:bg-gray-800 hover:text-blue-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" :class="[(smallMenu ? 'translate-x-0 relative' : '-translate-x-16  w-0') ]">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+              </svg>
+              <span class="sr-only">Expand menu</span>
+            </button>
+          </div>
+          <nav class="py-4">
+            <ul>
+              <li>
+                <a href="/s/about" class="flex justify-center w-full px-4 py-2 hover:bg-gray-900 group">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
+                  <span class="sr-only">Dashboards</span>
+                </a>
+              </li>
+              <li>
+                <a href="/s/about" class="flex justify-center w-full px-4 py-2 hover:bg-gray-900 group">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                  </svg>
+                  <span class="sr-only">Elements</span>
+                </a>
+              </li>
+              <li x-data="{ isOpen: false }" class="relative" @mouseleave.debounce.200ms="isOpen = false">
+                <button class="flex justify-center w-full px-4 py-2 hover:bg-gray-900 group"
+                  @mouseenter="isOpen = true">
+                  <svg xmlns="http://www.w3.org/2000/svg" :class="isInUrl('/pages/') ? 'text-blue-500' : ''"
+                    class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span class="sr-only">Pages</span>
+                </button>
+                <div class="absolute z-40 px-4 py-4 -top-6 left-16" x-show="isOpen" x-transition>
+                  <ul class="w-48 px-1 py-2 bg-gray-900 rounded-lg shadow-md">
+                    <li x-data="{ isOpen: false }" x-init="isOpen = isInUrl('/pages/account/')">
+                      <button @click="isOpen = !isOpen"
+                        class="flex items-center flex-1 w-full px-4 py-1 pl-6 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:bg-gray-500 before:h-1 before:w-1 before:mr-4">
+                        <span class="transition-colors duration-100 group-hover:text-white">Account</span>
+                        <span class="flex justify-end flex-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" :class="isOpen ? '' : '-rotate-90' "
+                            class="w-4 h-4 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </span>
+                      </button>
+                    </li>
+                    <li x-data="{ isOpen: false }" x-init="isOpen = isInUrl('/pages/projects/')">
+                      <button @click="isOpen = !isOpen"
+                        class="flex items-center flex-1 w-full px-4 py-1 pl-6 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:bg-gray-500 before:h-1 before:w-1 before:mr-4">
+                        <span class="transition-colors duration-100 group-hover:text-white">Projects</span>
+                        <span class="flex justify-end flex-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" :class="isOpen ? '' : '-rotate-90' "
+                            class="w-4 h-4 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </span>
+                      </button>
+                      <ul x-show="isOpen" x-transition:enter.duration.500ms x-transition:leave.duration.100ms>
+                        <li>
+                          <a href="../../pages/projects/overview/"
+                            :class="isInUrl('/pages/projects/overview/') ? 'bg-gray-900 before:bg-blue-500' : 'bg-transparent before:bg-gray-500'"
+                            class="flex items-center flex-1 px-4 py-1 pl-8 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:h-1 before:w-1 before:mr-4">
+                            <span :class="isInUrl('/pages/projects/overview/') ? 'text-white' : ''"
+                              class="transition-colors duration-100 group-hover:text-white">Overview</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="../../pages/projects/cards/"
+                            :class="isInUrl('/pages/projects/cards/') ? 'bg-gray-900 before:bg-blue-500' : 'bg-transparent before:bg-gray-500'"
+                            class="flex items-center flex-1 px-4 py-1 pl-8 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:h-1 before:w-1 before:mr-4">
+                            <span :class="isInUrl('/pages/projects/cards/') ? 'text-white' : ''"
+                              class="transition-colors duration-100 group-hover:text-white">Cards</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="../../pages/projects/cards2/"
+                            :class="isInUrl('/pages/projects/cards2/') ? 'bg-gray-900 before:bg-blue-500' : 'bg-transparent before:bg-gray-500'"
+                            class="flex items-center flex-1 px-4 py-1 pl-8 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:h-1 before:w-1 before:mr-4">
+                            <span :class="isInUrl('/pages/projects/cards2/') ? 'text-white' : ''"
+                              class="transition-colors duration-100 group-hover:text-white">Cards 2</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="../../pages/projects/files/"
+                            :class="isInUrl('/pages/projects/files/') ? 'bg-gray-900 before:bg-blue-500' : 'bg-transparent before:bg-gray-500'"
+                            class="flex items-center flex-1 px-4 py-1 pl-8 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:h-1 before:w-1 before:mr-4">
+                            <span :class="isInUrl('/pages/projects/files/') ? 'text-white' : ''"
+                              class="transition-colors duration-100 group-hover:text-white">Files</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li x-data="{ isOpen: false }" x-init="isOpen = isInUrl('/pages/profile/')">
+                      <button @click="isOpen = !isOpen"
+                        class="flex items-center flex-1 w-full px-4 py-1 pl-6 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:bg-gray-500 before:h-1 before:w-1 before:mr-4">
+                        <span class="transition-colors duration-100 group-hover:text-white">Profile</span>
+                        <span class="flex justify-end flex-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" :class="isOpen ? '' : '-rotate-90' "
+                            class="w-4 h-4 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </span>
+                      </button>
+                      <ul x-show="isOpen" x-transition:enter.duration.500ms x-transition:leave.duration.100ms>
+                        <li>
+                          <a href="../../pages/profile/overview/"
+                            :class="isInUrl('/pages/profile/overview/') ? 'bg-gray-900 before:bg-blue-500' : 'bg-transparent before:bg-gray-500'"
+                            class="flex items-center flex-1 px-4 py-1 pl-8 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:h-1 before:w-1 before:mr-4">
+                            <span :class="isInUrl('/pages/profile/overview/') ? 'text-white' : ''"
+                              class="transition-colors duration-100 group-hover:text-white">Overview</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="../../pages/profile/myprofile/"
+                            :class="isInUrl('/pages/profile/myprofile/') ? 'bg-gray-900 before:bg-blue-500' : 'bg-transparent before:bg-gray-500'"
+                            class="flex items-center flex-1 px-4 py-1 pl-8 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:h-1 before:w-1 before:mr-4">
+                            <span :class="isInUrl('/pages/profile/myprofile/') ? 'text-white' : ''"
+                              class="transition-colors duration-100 group-hover:text-white">My Profile</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <a href="#" class="flex items-center justify-center px-4 py-2 hover:bg-gray-900 group">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+                  </svg>
+                  <span class="sr-only">Elements</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="flex items-center justify-center px-4 py-2 hover:bg-gray-900 group">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                  </svg>
+                  <span class="sr-only">cards</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="flex items-center justify-center px-4 py-2 hover:bg-gray-900 group">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  <span class="sr-only">Authentication</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="flex items-center justify-center px-4 py-2 hover:bg-gray-900 group">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
+                  </svg>
+                  <span class="sr-only">Cards</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="flex items-center justify-center px-4 py-2 hover:bg-gray-900 group">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                  </svg>
+                  <span class="sr-only">Sidebars</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <!-- small variant -->
+
+        <!-- large variant -->
+        <div class="z-20 h-full overflow-hidden text-gray-400 transition-all duration-500 bg-gray-800 opacity-0" :class="[
+            ( (smallMenu && !mobileMenu) ? '-translate-x-64  sm:relative w-0 ' : 'sm:relative translate-x-0 sm:opacity-100 '), 
+            ( (mobileMenu && !smallMenu) ? 'fixed translate-x-0 opacity-100 w-64 ' : ''),
+            ( (!mobileMenu && !smallMenu) ? '-translate-x-64  absolute w-0 sm:w-64 sm:translate-x-0 sm:opacity-100 sm:relative ' : 'fixed translate-x-0 opacity-100 '),
+          ]">
+          <div class="flex justify-between px-4 py-3 bg-gray-900 bg-opacity-90">
+            <a href="/s/about" class="flex items-center justify-center lg:justify-start">
+              <img src="{{ 'images/logo-white.svg' | asset_url }}" alt="logo" class="inline-block h-4">
+            </a>
+            <button @click="[smallMenu = true]"
+              class="items-center justify-center hidden p-2 transition-all translate-x-2 bg-transparent rounded-full sm:flex hover:bg-gray-800 hover:text-blue-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+              </svg>
+            </button>
+            <button @click="[mobileMenu = false, smallMenu = true]"
+              class="flex items-center justify-center p-2 transition-all translate-x-2 bg-transparent rounded-full sm:hidden hover:bg-gray-800 hover:text-blue-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+              </svg>
+            </button>
+          </div>
+          <div class="py-4">
+            <nav>
+              <a href="/s/about" class="flex items-center px-4 py-1 space-x-2 text-sm leading-7 hover:bg-gray-900 group">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <span class="transition-colors duration-100 group-hover:text-white">Dashboards</span>
+              </a>
+              <a href="/s/about" class="flex items-center px-4 py-1 space-x-2 text-sm leading-7 hover:bg-gray-900 group">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                </svg>
+                <span class="transition-colors duration-100 group-hover:text-white">Elements</span>
+              </a>
+              <span
+                class="block px-4 mt-4 mb-2 text-xs font-semibold tracking-widest text-gray-500 uppercase">Pages</span>
+              <ul>
+                <li x-data="{ isOpen: false }" x-init="isOpen = isInUrl('/pages/')">
+                  <button @click="isOpen = !isOpen"
+                    class="flex items-center justify-between w-full px-4 py-1 space-x-2 text-sm leading-7 hover:bg-gray-900 group">
+                    <span class="flex items-center space-x-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" :class="isInUrl('/pages/') ? 'text-blue-500' : ''"
+                        class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <span class="transition-colors duration-100 group-hover:text-white"
+                        :class="isInUrl('/pages/') ? 'text-white' : ''">Pages</span>
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" :class="isOpen ? '' : '-rotate-90' "
+                      class="w-4 h-4 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  <ul x-show="isOpen" x-transition:enter.duration.500ms x-transition:leave.duration.100ms>
+                    <li x-data="{ isOpen: false }" x-init="isOpen = isInUrl('/pages/account/')">
+                      <button @click="isOpen = !isOpen"
+                        class="flex items-center flex-1 w-full px-4 py-1 pl-6 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:bg-gray-500 before:h-1 before:w-1 before:mr-4">
+                        <span class="transition-colors duration-100 group-hover:text-white">Account</span>
+                        <span class="flex justify-end flex-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" :class="isOpen ? '' : '-rotate-90' "
+                            class="w-4 h-4 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </span>
+                      </button>
+                    </li>
+                    <li x-data="{ isOpen: false }" x-init="isOpen = isInUrl('/pages/projects/')">
+                      <button @click="isOpen = !isOpen"
+                        class="flex items-center flex-1 w-full px-4 py-1 pl-6 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:bg-gray-500 before:h-1 before:w-1 before:mr-4">
+                        <span class="transition-colors duration-100 group-hover:text-white">Projects</span>
+                        <span class="flex justify-end flex-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" :class="isOpen ? '' : '-rotate-90' "
+                            class="w-4 h-4 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </span>
+                      </button>
+                      <ul x-show="isOpen" x-transition:enter.duration.500ms x-transition:leave.duration.100ms>
+                        <li>
+                          <a href="../../pages/projects/overview"
+                            :class="isInUrl('/pages/projects/overview') ? 'bg-gray-900 before:bg-blue-500' : 'bg-transparent before:bg-gray-500'"
+                            class="flex items-center flex-1 px-4 py-1 pl-8 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:h-1 before:w-1 before:mr-4">
+                            <span :class="isInUrl('/pages/projects/overview') ? 'text-white' : ''"
+                              class="transition-colors duration-100 group-hover:text-white">Overview</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="../../pages/projects/cards"
+                            :class="isInUrl('/pages/projects/cards') ? 'bg-gray-900 before:bg-blue-500' : 'bg-transparent before:bg-gray-500'"
+                            class="flex items-center flex-1 px-4 py-1 pl-8 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:h-1 before:w-1 before:mr-4">
+                            <span :class="isInUrl('/pages/projects/cards') ? 'text-white' : ''"
+                              class="transition-colors duration-100 group-hover:text-white">Cards</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="../../pages/projects/cards-alternative"
+                            :class="isInUrl('/pages/projects/cards-alternative') ? 'bg-gray-900 before:bg-blue-500' : 'bg-transparent before:bg-gray-500'"
+                            class="flex items-center flex-1 px-4 py-1 pl-8 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:h-1 before:w-1 before:mr-4">
+                            <span :class="isInUrl('/pages/projects/cards-alternative') ? 'text-white' : ''"
+                              class="transition-colors duration-100 group-hover:text-white">Cards 2</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="../../pages/projects/files"
+                            :class="isInUrl('/pages/projects/files') ? 'bg-gray-900 before:bg-blue-500' : 'bg-transparent before:bg-gray-500'"
+                            class="flex items-center flex-1 px-4 py-1 pl-8 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:h-1 before:w-1 before:mr-4">
+                            <span :class="isInUrl('/pages/projects/files') ? 'text-white' : ''"
+                              class="transition-colors duration-100 group-hover:text-white">Files</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li x-data="{ isOpen: false }" x-init="isOpen = isInUrl('/pages/profile/')">
+                      <button @click="isOpen = !isOpen"
+                        class="flex items-center flex-1 w-full px-4 py-1 pl-6 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:bg-gray-500 before:h-1 before:w-1 before:mr-4">
+                        <span class="transition-colors duration-100 group-hover:text-white">Profile</span>
+                        <span class="flex justify-end flex-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" :class="isOpen ? '' : '-rotate-90' "
+                            class="w-4 h-4 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </span>
+                      </button>
+                      <ul x-show="isOpen" x-transition:enter.duration.500ms x-transition:leave.duration.100ms>
+                        <li>
+                          <a href="../../pages/profile/overview"
+                            :class="isInUrl('/pages/profile/overview') ? 'bg-gray-900 before:bg-blue-500' : 'bg-transparent before:bg-gray-500'"
+                            class="flex items-center flex-1 px-4 py-1 pl-8 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:h-1 before:w-1 before:mr-4">
+                            <span :class="isInUrl('/pages/profile/overview') ? 'text-white' : ''"
+                              class="transition-colors duration-100 group-hover:text-white">Overview</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="../../pages/profile/myprofile"
+                            :class="isInUrl('/pages/profile/myprofile') ? 'bg-gray-900 before:bg-blue-500' : 'bg-transparent before:bg-gray-500'"
+                            class="flex items-center flex-1 px-4 py-1 pl-8 space-x-2 text-sm leading-7 hover:before:bg-blue-500 before:top-2 hover:bg-gray-900 group before:block before:rounded-full before:h-1 before:w-1 before:mr-4">
+                            <span :class="isInUrl('/pages/profile/myprofile') ? 'text-white' : ''"
+                              class="transition-colors duration-100 group-hover:text-white">My Profile</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+
+                  </ul>
+                </li>
+                <li>
+                  <a href="#"
+                    class="flex items-center justify-between px-4 py-1 space-x-2 text-sm leading-7 hover:bg-gray-900 group">
+                    <span class="flex items-center space-x-2">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+                      </svg>
+                      <span class="transition-colors duration-100 group-hover:text-white">Elements</span>
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 -rotate-90" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="flex items-center justify-between px-4 py-1 space-x-2 text-sm leading-7 hover:bg-gray-900 group">
+                    <span class="flex items-center space-x-2">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                      </svg>
+                      <span class="transition-colors duration-100 group-hover:text-white">Cards</span>
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 -rotate-90" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="flex items-center justify-between px-4 py-1 space-x-2 text-sm leading-7 hover:bg-gray-900 group">
+                    <span class="flex items-center space-x-2">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      <span class="transition-colors duration-100 group-hover:text-white">Authentication</span>
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 -rotate-90" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+              <span
+                class="block px-4 mt-4 mb-2 text-xs font-semibold tracking-widest text-gray-500 uppercase">Customize</span>
+              <ul>
+                <li>
+                  <a href="#"
+                    class="flex items-center justify-between px-4 py-1 space-x-2 text-sm leading-7 hover:bg-gray-900 group">
+                    <span class="flex items-center space-x-2">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
+                      </svg>
+                      <span class="transition-colors duration-100 group-hover:text-white">Cards</span>
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 -rotate-90" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="flex items-center justify-between px-4 py-1 space-x-2 text-sm leading-7 hover:bg-gray-900 group">
+                    <span class="flex items-center space-x-2">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                      </svg>
+                      <span class="transition-colors duration-100 group-hover:text-white">Sidebars</span>
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 -rotate-90" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!--/ large variant -->
+      </aside>
+    </div>
+    <div class="flex-1 min-w-0">
+      <div class="flex justify-end px-6 py-3 bg-white border-b border-gray-200 sm:justify-between xl:px-12">
+        <nav class="items-center flex-1 hidden mx-auto space-x-2 text-sm text-gray-700 sm:flex">
+          <a href="#" class="px-3 py-2 font-medium text-gray-700 bg-gray-100 rounded-md ">Dashboard</a>
+          <a href="#"
+            class="px-3 py-2 transition-colors duration-300 bg-white rounded-md hover:bg-gray-100 hover:text-blue-600">Pages</a>
+          <a href="#"
+            class="px-3 py-2 transition-colors duration-300 bg-white rounded-md hover:bg-gray-100 hover:text-blue-600">Support</a>
+          <a href="#"
+            class="px-3 py-2 transition-colors duration-300 bg-white rounded-md hover:bg-gray-100 hover:text-blue-600">Profile</a>
+          <a href="#"
+            class="px-3 py-2 transition-colors duration-300 bg-white rounded-md hover:bg-gray-100 hover:text-blue-600">Contact</a>
+        </nav>
+        <div>
+          <button>
+            <img src="{{ 'images/demo/user.jpg' | asset_url }}" alt="Image placeholder" class="w-10 h-10 rounded-full">
+          </button>
+        </div>
+      </div>
+      <div class="px-6 py-8 mx-auto space-y-6 xl:px-12">
+        <div class="max-w-screen-xl px-6 py-8 mx-auto space-y-6 xl:px-12">
+          <div class="max-w-screen-md mx-auto">
+            <h2 class="text-xl font-semibold text-center text-gray-800 lg:text-2xl">Frequently Asked Questions</h2>
+            <p class="mt-2 text-sm text-center text-gray-700">When, while the lovely valley teems with vapour around me,
+              and the meridian sun strikes the upper surface of the degree. Or suits despair flaunting sooth more weary
+            </p>
+            <div class="flex justify-center pt-6 pb-3 mt-5 space-x-3 lg:py-3">
+              <button
+                class="flex items-center px-4 py-3 space-x-2 text-sm font-semibold leading-4 transition-colors duration-300 bg-blue-600 rounded-md hover:bg-blue-700 text-blue-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                  </path>
+                </svg>
+                <span>
+                  Chat <span class="hidden md:inline">with Support</span>
+                </span>
+              </button>
+              <button
+                class="flex items-center px-4 py-3 space-x-2 text-sm font-semibold leading-4 text-gray-700 transition-colors duration-300 bg-gray-100 rounded-md hover:bg-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                  </path>
+                </svg>
+                <span><span class="hidden md:inline">Create</span> Support Ticket</span>
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center justify-between space-x-4">
+            <form action="" class="relative flex-1">
+              <input type="text" placeholder="Search term..."
+                class="block w-full py-3 pl-12 placeholder-gray-400 transition-colors duration-300 border-0 border-transparen peer focus:border-transparent ring-transparent focus:ring-transparent focus:ring-opacity-80  text-sm">
+              <button
+                class="absolute flex items-center justify-center w-8 h-8 p-1 text-gray-600 transition-all duration-300 bg-transparent rounded-full left-3 top-2 hover:bg-gray-100 peer-focus:text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </form>
+          </div>
+          <div class="grid flex-1 gap-6 mt-6 xl:grid-cols-2">
+            <a href="#"
+              class="flex items-start justify-between px-4 pt-6 pb-3 transition-all duration-300 bg-white rounded-md shadow-sm shadow-gray-200 hover:-translate-y-1 hover:shadow-md ">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="flex items-center justify-center w-12 h-12 text-blue-600 bg-blue-100 rounded-md md:w-16 md:h-16">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <span class="font-semibold text-gray-800">Fu accio Norsa Marla quella</span>
+                  <span class="block mt-1 text-sm text-gray-700">56 Articles</span>
+                  <span class="block mb-3 text-sm text-gray-600">Last edited a week ago by Danny Brown</span>
+                </div>
+              </div>
+            </a>
+            <a href="#"
+              class="flex items-start justify-between px-4 pt-6 pb-3 transition-all duration-300 bg-white rounded-md shadow-sm shadow-gray-200 hover:-translate-y-1 hover:shadow-md ">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="flex items-center justify-center w-12 h-12 text-blue-600 bg-blue-100 rounded-md md:w-16 md:h-16">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <span class="font-semibold text-gray-800">White suv in front of tent during night time photo</span>
+                  <span class="block mt-1 text-sm text-gray-700">23 Articles</span>
+                  <span class="block mb-3 text-sm text-gray-600">Last edited a week ago by Danny Brown</span>
+                </div>
+              </div>
+            </a>
+            <a href="#"
+              class="flex items-start justify-between px-4 pt-6 pb-3 transition-all duration-300 bg-white rounded-md shadow-sm shadow-gray-200 hover:-translate-y-1 hover:shadow-md ">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="flex items-center justify-center w-12 h-12 text-blue-600 bg-blue-100 rounded-md md:w-16 md:h-16">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <span class="font-semibold text-gray-800">White suv in front of tent during night time photo</span>
+                  <span class="block mt-1 text-sm text-gray-700">78 Articles</span>
+                  <span class="block mb-3 text-sm text-gray-600">Last edited a week ago by Danny Brown</span>
+                </div>
+              </div>
+            </a>
+            <a href="#"
+              class="flex items-start justify-between px-4 pt-6 pb-3 transition-all duration-300 bg-white rounded-md shadow-sm shadow-gray-200 hover:-translate-y-1 hover:shadow-md ">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="flex items-center justify-center w-12 h-12 text-blue-600 bg-blue-100 rounded-md md:w-16 md:h-16">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <span class="font-semibold text-gray-800">Marketing strategy 2022 - themes.dev</span>
+                  <span class="block mt-1 text-sm text-gray-700">248 Articles</span>
+                  <span class="block mb-3 text-sm text-gray-600">Last edited a week ago by Danny Brown</span>
+                </div>
+              </div>
+            </a>
+            <a href="#"
+              class="flex items-start justify-between px-4 pt-6 pb-3 transition-all duration-300 bg-white rounded-md shadow-sm shadow-gray-200 hover:-translate-y-1 hover:shadow-md ">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="flex items-center justify-center w-12 h-12 text-blue-600 bg-blue-100 rounded-md md:w-16 md:h-16">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <span class="font-semibold text-gray-800">Brown rock formation during daytime photo</span>
+                  <span class="block mt-1 text-sm text-gray-700">25 Articles</span>
+                  <span class="block mb-3 text-sm text-gray-600">Last edited a week ago by Jessica Dromper</span>
+                </div>
+              </div>
+            </a>
+            <a href="#"
+              class="flex items-start justify-between px-4 pt-6 pb-3 transition-all duration-300 bg-white rounded-md shadow-sm shadow-gray-200 hover:-translate-y-1 hover:shadow-md ">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="flex items-center justify-center w-12 h-12 text-blue-600 bg-blue-100 rounded-md md:w-16 md:h-16">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <span class="font-semibold text-gray-800">Dallo pregato in in cospetto</span>
+                  <span class="block mt-1 text-sm text-gray-700">29 Articles</span>
+                  <span class="block mb-3 text-sm text-gray-600">Last edited a week ago by Jane Fox</span>
+                </div>
+              </div>
+            </a>
+            <a href="#"
+              class="flex items-start justify-between px-4 pt-6 pb-3 transition-all duration-300 bg-white rounded-md shadow-sm shadow-gray-200 hover:-translate-y-1 hover:shadow-md ">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="flex items-center justify-center w-12 h-12 text-blue-600 bg-blue-100 rounded-md md:w-16 md:h-16">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <span class="font-semibold text-gray-800">Adipisicing cupidatat voluptate in cillum duis
+                    reprehenderit</span>
+                  <span class="block mt-1 text-sm text-gray-700">78 Articles</span>
+                  <span class="block mb-3 text-sm text-gray-600">Last edited a week ago by Lotte de Groot</span>
+                </div>
+              </div>
+            </a>
+            <a href="#"
+              class="flex items-start justify-between px-4 pt-6 pb-3 transition-all duration-300 bg-white rounded-md shadow-sm shadow-gray-200 hover:-translate-y-1 hover:shadow-md ">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="flex items-center justify-center w-12 h-12 text-blue-600 bg-blue-100 rounded-md md:w-16 md:h-16">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <span class="font-semibold text-gray-800">Sint ex pariatur nisi pariatur veniam aute nisi esse nostrud
+                    mollit est.</span>
+                  <span class="block mt-1 text-sm text-gray-700">78 Articles</span>
+                  <span class="block mb-3 text-sm text-gray-600">Last edited a week ago by Lotte de Groot</span>
+                </div>
+              </div>
+            </a>
+            <a href="#"
+              class="flex items-start justify-between px-4 pt-6 pb-3 transition-all duration-300 bg-white rounded-md shadow-sm shadow-gray-200 hover:-translate-y-1 hover:shadow-md ">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="flex items-center justify-center w-12 h-12 text-blue-600 bg-blue-100 rounded-md md:w-16 md:h-16">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <span class="font-semibold text-gray-800">In labore occaecat qui ullamco in non ex.</span>
+                  <span class="block mt-1 text-sm text-gray-700">78 Articles</span>
+                  <span class="block mb-3 text-sm text-gray-600">Last edited a week ago by Lotte de Groot</span>
+                </div>
+              </div>
+            </a>
+            <a href="#"
+              class="flex items-start justify-between px-4 pt-6 pb-3 transition-all duration-300 bg-white rounded-md shadow-sm shadow-gray-200 hover:-translate-y-1 hover:shadow-md ">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="flex items-center justify-center w-12 h-12 text-blue-600 bg-blue-100 rounded-md md:w-16 md:h-16">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <span class="font-semibold text-gray-800">Proident est id culpa labore elit eiusmod elit laborum amet
+                    duis.</span>
+                  <span class="block mt-1 text-sm text-gray-700">78 Articles</span>
+                  <span class="block mb-3 text-sm text-gray-600">Last edited a week ago by Lotte de Groot</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+

@@ -3,34 +3,197 @@
 {% set_meta_keywords 'Baklib,Wiki' %}
 
 <!-- the custom static page example -->
-<!-- code from https://tailwindui.com/components/marketing/page-examples/landing-pages -->
+<!-- code from https://themes.dev-->
 
-<main class="isolate">
-  <!-- Hero section -->
-  <div class="relative pt-44">
-    <div class="absolute inset-x-0 overflow-hidden -top-40 -z-10 transform-gpu blur-3xl sm:-top-80" aria-hidden="true">
-      <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-    </div>
-    <div class="py-24 sm:py-32">
-      <div class="px-6 mx-auto max-w-7xl lg:px-8">
-        <div class="max-w-2xl mx-auto text-center">
-          <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">自定义 HTML块 </h1>
-          <p class="mt-6 text-lg leading-8 text-gray-600">将下面的 HTML 块复制到对应的 features_one/features_two 属性中即可。</p>
-          <div class="flex items-center justify-center mt-10 gap-x-6">
-            <a href="https://help.baklib.cn/code/html" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">使用教程</a>
-            <a href="https://dev.baklib.cn/guide/forms" class="text-sm font-semibold leading-6 text-gray-900">查看动态表单自定义 <span aria-hidden="true">→</span></a>
+<div class="flex mx-auto max-w-7xl">
+  <div class="flex-1 order-1 px-6 py-8 bg-white sm:px-8 xl:px-12 ">
+      <div class="mx-auto max-w-screen-3xl">
+        <h1 class="text-2xl font-bold text-gray-800 md:text-3xl md:leading-tight">可定制更多的展示样式</h1>
+        <div class="grid grid-cols-1 gap-8 pt-8 md:grid-cols-2 xl:grid-cols-3 lg:gap-12 ">
+          <div>
+            <a href="/s/faq-item" class="group focus:outline-none">
+              <div class="relative">
+                <div
+                  class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-white bg-opacity-25 opacity-0 group-hover:opacity-100 ">
+                  <span
+                    class="px-2 py-2 text-xs font-semibold tracking-wider text-gray-600 uppercase duration-300 scale-50 bg-white rounded-lg shadow-lg group-hover:scale-100 ">View
+                    Code</span>
+                </div>
+                <picture>
+                  <source type="image/webp"
+                    srcset="{{ 'images/demo/support/faq-item.webp' | asset_url }} 1x, {{ 'images/demo/support/faq-item.webp' | asset_url }} 2x">
+                  <img
+                    src="{{ 'images/demo/support/faq-item.png' | asset_url }}"
+                    alt="FAQ - Item" title="FAQ - Item"
+                    class="lazy block w-full overflow-hidden  bg-gray-100 rounded-lg object-top   object-cover shadow-lg group-focus:border-blue-600"
+                    width="1000" height="600" loading="lazy">
+                </picture>
+              </div>
+              <span class="block mt-4 font-semibold tracking-wider text-left text-gray-700">FAQ - Item</span>
+            </a>
+            <a href="/s/faq-item" class="block mt-3 font-semibold text-gray-700 hover:text-blue-600"
+              target="_blank">Direct Link</a>
+          </div>
+          <div>
+            <a href="/s/faq-simple" class="group focus:outline-none">
+              <div class="relative">
+                <div
+                  class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-white bg-opacity-25 opacity-0 group-hover:opacity-100 ">
+                  <span
+                    class="px-2 py-2 text-xs font-semibold tracking-wider text-gray-600 uppercase duration-300 scale-50 bg-white rounded-lg shadow-lg group-hover:scale-100 ">View
+                    Code</span>
+                </div>
+                <picture>
+                  <source type="image/webp"
+                    srcset="{{ 'images/demo/support/faq-simple.webp' | asset_url }} 1x, {{ 'images/demo/support/faq-simple.webp' | asset_url }} 2x">
+                  <img
+                    src="{{ 'images/demo/support/faq-simple.png' | asset_url }}"
+                    alt="FAQ - Simple" title="FAQ - Simple"
+                    class="lazy block w-full overflow-hidden  bg-gray-100 rounded-lg object-top   object-cover shadow-lg group-focus:border-blue-600"
+                    width="1000" height="600" loading="lazy">
+                </picture>
+              </div>
+              <span class="block mt-4 font-semibold tracking-wider text-left text-gray-700">FAQ - Simple</span>
+            </a>
+            <a href="/s/faq-simple"
+              class="block mt-3 font-semibold text-gray-700 hover:text-blue-600" target="_blank">Direct Link</a>
+          </div>
+          <div>
+            <a href="/s/faq-toggle" class="group focus:outline-none">
+              <div class="relative">
+                <div
+                  class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-white bg-opacity-25 opacity-0 group-hover:opacity-100 ">
+                  <span
+                    class="px-2 py-2 text-xs font-semibold tracking-wider text-gray-600 uppercase duration-300 scale-50 bg-white rounded-lg shadow-lg group-hover:scale-100 ">View
+                    Code</span>
+                </div>
+                <picture>
+                  <source type="image/webp"
+                    srcset="{{ 'images/demo/support/faq-toggle.webp' | asset_url }} 1x, {{ 'images/demo/support/faq-toggle.webp' | asset_url }} 2x">
+                  <img
+                    src="{{ 'images/demo/support/faq-toggle.png' | asset_url }}"
+                    alt="FAQ - Toggle" title="FAQ - Toggle"
+                    class="lazy block w-full overflow-hidden  bg-gray-100 rounded-lg object-top   object-cover shadow-lg group-focus:border-blue-600"
+                    width="1000" height="600" loading="lazy">
+                </picture>
+              </div>
+              <span class="block mt-4 font-semibold tracking-wider text-left text-gray-700">FAQ - Toggle</span>
+            </a>
+            <a href="/s/faq-toggle-cards"
+              class="block mt-3 font-semibold text-gray-700 hover:text-blue-600" target="_blank">Direct Link</a>
+          </div>
+          <div>
+            <a href="/s/faq-toggle-cards" class="group focus:outline-none">
+              <div class="relative">
+                <div
+                  class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-white bg-opacity-25 opacity-0 group-hover:opacity-100 ">
+                  <span
+                    class="px-2 py-2 text-xs font-semibold tracking-wider text-gray-600 uppercase duration-300 scale-50 bg-white rounded-lg shadow-lg group-hover:scale-100 ">View
+                    Code</span>
+                </div>
+                <picture>
+                  <source type="image/webp"
+                    srcset="{{ 'images/demo/support/faq-toggle-cards.webp' | asset_url }} 1x, {{ 'images/demo/support/faq-toggle-cards.webp' | asset_url }} 2x">
+                  <img
+                    src="{{ 'images/demo/support/faq-toggle-cards.png' | asset_url }}"
+                    alt="FAQ - Toggle Cards" title="FAQ - Toggle Cards"
+                    class="lazy block w-full overflow-hidden  bg-gray-100 rounded-lg object-top   object-cover shadow-lg group-focus:border-blue-600"
+                    width="1000" height="600" loading="lazy">
+                </picture>
+              </div>
+              <span class="block mt-4 font-semibold tracking-wider text-left text-gray-700">FAQ - Toggle Cards</span>
+            </a>
+            <a href="/s/faq-toggle-cards"
+              class="block mt-3 font-semibold text-gray-700 hover:text-blue-600" target="_blank">Direct Link</a>
+          </div>
+          <div>
+            <a href="/s/knowledge-dashboard" class="group focus:outline-none">
+              <div class="relative">
+                <div
+                  class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-white bg-opacity-25 opacity-0 group-hover:opacity-100 ">
+                  <span
+                    class="px-2 py-2 text-xs font-semibold tracking-wider text-gray-600 uppercase duration-300 scale-50 bg-white rounded-lg shadow-lg group-hover:scale-100 ">View
+                    Code</span>
+                </div>
+                <picture>
+                  <source type="image/webp"
+                    srcset="{{ 'images/demo/support/knowledge-dashboard.webp' | asset_url }} 1x, {{ 'images/demo/support/knowledge-dashboard.webp' | asset_url }} 2x">
+                  <img
+                    src="{{ 'images/demo/support/knowledge-dashboard.png' | asset_url }}"
+                    alt="Knowledge dashboard" title="Knowledge dashboard"
+                    class="lazy block w-full overflow-hidden  bg-gray-100 rounded-lg object-top   object-cover shadow-lg group-focus:border-blue-600"
+                    width="1000" height="600" loading="lazy">
+                </picture>
+              </div>
+              <span class="block mt-4 font-semibold tracking-wider text-left text-gray-700">Knowledge dashboard</span>
+            </a>
+            <a href="/s/knowledge-dashboard"
+              class="block mt-3 font-semibold text-gray-700 hover:text-blue-600" target="_blank">Direct Link</a>
+          </div>
+          <div>
+            <a href="/s/knowledge-dashboard-alternative" class="group focus:outline-none">
+              <div class="relative">
+                <div
+                  class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-white bg-opacity-25 opacity-0 group-hover:opacity-100 ">
+                  <span
+                    class="px-2 py-2 text-xs font-semibold tracking-wider text-gray-600 uppercase duration-300 scale-50 bg-white rounded-lg shadow-lg group-hover:scale-100 ">View
+                    Code</span>
+                </div>
+                <picture>
+                  <source type="image/webp"
+                    srcset="{{ 'images/demo/support/knowledge-dashboard-alternative.webp' | asset_url }} 1x, {{ 'images/demo/support/knowledge-dashboard-alternative.webp' | asset_url }} 2x">
+                  <img
+                    src="{{ 'images/demo/support/knowledge-dashboard-alternative.png' | asset_url }}"
+                    alt="Knowledge dashboard alternative" title="Knowledge dashboard alternative"
+                    class="lazy block w-full overflow-hidden  bg-gray-100 rounded-lg object-top   object-cover shadow-lg group-focus:border-blue-600"
+                    width="1000" height="600" loading="lazy">
+                </picture>
+              </div>
+              <span class="block mt-4 font-semibold tracking-wider text-left text-gray-700">Knowledge dashboard
+                alternative</span>
+            </a>
+            <a href="/s/knowledge-dashboard-alternative"
+              class="block mt-3 font-semibold text-gray-700 hover:text-blue-600" target="_blank">Direct Link</a>
+          </div>
+          <div>
+            <a href="/s/knowledge-page" class="group focus:outline-none">
+              <div class="relative">
+                <div
+                  class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-white bg-opacity-25 opacity-0 group-hover:opacity-100 ">
+                  <span
+                    class="px-2 py-2 text-xs font-semibold tracking-wider text-gray-600 uppercase duration-300 scale-50 bg-white rounded-lg shadow-lg group-hover:scale-100 ">View
+                    Code</span>
+                </div>
+                <picture>
+                  <source type="image/webp"
+                    srcset="{{ 'images/demo/support/knowledge-page.webp' | asset_url }} 1x, {{ 'images/demo/support/knowledge-page.webp' | asset_url }} 2x">
+                  <img
+                    src="{{ 'images/demo/support/knowledge-page.png' | asset_url }}"
+                    alt="Knowledge Page" title="Knowledge Page"
+                    class="lazy block w-full overflow-hidden  bg-gray-100 rounded-lg object-top   object-cover shadow-lg group-focus:border-blue-600"
+                    width="1000" height="600" loading="lazy">
+                </picture>
+              </div>
+              <span class="block mt-4 font-semibold tracking-wider text-left text-gray-700">Knowledge Page</span>
+            </a>
+            <a href="/s/knowledge-page"
+              class="block mt-3 font-semibold text-gray-700 hover:text-blue-600" target="_blank">Direct Link</a>
           </div>
         </div>
       </div>
     </div>
-    <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
-      <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-    </div>
-  </div>
-</main>
+</div>
 
 <!-- Features One 1 -->
 <section id="features_one1" class="mx-auto max-w-7xl relative">
+  <div class="my-12">
+    <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">可添加更多的HTML代码块 </h1>
+    <p class="text-lg leading-8 text-gray-600">将下面的 HTML 块复制到对应的 features_one/features_two 属性中即可。</p>
+    <div class="flex mt-2 gap-x-6">
+      <a href="https://help.baklib.cn/code/html" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">使用教程</a>
+      <a href="https://dev.baklib.cn/guide/forms" class="text-sm font-semibold leading-6 text-gray-900">查看动态表单自定义 <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
   <div class="flex justify-between bg-slate-400 p-2">
     <h2 class="text-2xl">示例 1：</h2>
     <a href="https://www.uibak.com/sections/stats" target="_blank" class="text-blue-600 hover:underline">查看源代码</a>
@@ -418,15 +581,15 @@
               <div class="flex items-center justify-center space-x-4 mt-6">
                 <a href="https://work.weixin.qq.com/ca/cawcde58d4b690dd60" target="_blank" class="hover:text-gray-500">
                   <span class="sr-only">AQian</span>
-                  <img class="h-16 w-16" src="https://tanmer.baklib.com/-/dam/assets/organization_pry3c5/eyJfcmFpbHMiOnsiZGF0YSI6eyJpZCI6MzEwNTAsInBhdGgiOiJ1c2VyLWFxaWFuLnBuZyIsInRpbWVzdGFtcCI6IjIwMjQtMTEtMTYgMTE6MzY6MTYgKzA4MDAifSwiZXhwIjoiMjAyNS0wMS0xMVQxNTo1OTo1OS45OTlaIiwicHVyIjoib3JnYW5pemF0aW9uX3ByeTNjNSJ9fQ--e0cbddf356a331f9721fe0ec19270657f28faf4a73bf221d8e52a19933666685/user-aqian.png"/>
+                  <img class="h-16 w-16" src="{{ 'images/demo/user7.jpg' |  asset_url }}"/>
                 </a>
                 <a href="https://work.weixin.qq.com/ca/cawcde9bbf328c5fe7" target="_blank" class="hover:text-gray-500">
                   <span class="sr-only">Lisa</span>
-                  <img class="h-12 w-12" src="https://tanmer.baklib.com/-/dam/assets/organization_pry3c5/eyJfcmFpbHMiOnsiZGF0YSI6eyJpZCI6MzEwNDgsInBhdGgiOiJ1ZXNyLWxpc2EucG5nIiwidGltZXN0YW1wIjoiMjAyNC0xMS0xNiAxMTozNjowMyArMDgwMCJ9LCJleHAiOiIyMDI1LTAxLTExVDE1OjU5OjU5Ljk5OVoiLCJwdXIiOiJvcmdhbml6YXRpb25fcHJ5M2M1In19--c7202f3b8cedef73ff7a7e0a65cf199f242dfc72cd21809516b72ddef9a6aa47/uesr-lisa.png"/>
+                  <img class="h-12 w-12" src="{{ 'images/demo/user2.jpg' |  asset_url }}"/>
                 </a>
                 <a href="https://work.weixin.qq.com/ca/cawcde62c865bb0630" target="_blank" class="hover:text-gray-500">
                   <span class="sr-only">Song</span>
-                  <img class="h-8 w-8" src="https://tanmer.baklib.com/-/dam/assets/organization_pry3c5/eyJfcmFpbHMiOnsiZGF0YSI6eyJpZCI6MzU3MjgsInBhdGgiOiLlrabmsZ8ucG5nIiwidGltZXN0YW1wIjoiMjAyNC0xMi0wNyAyMzowMDo0MCArMDgwMCJ9LCJleHAiOiIyMDI1LTAxLTExVDE1OjU5OjU5Ljk5OVoiLCJwdXIiOiJvcmdhbml6YXRpb25fcHJ5M2M1In19--4f610137ab555f72030a9ac0732fa99c5069ec14a6cf076782c4076939fbc52a/%E5%AD%A6%E6%B1%9F.png"/>
+                  <img class="h-8 w-8" src="{{ 'images/demo/user.jpg' |  asset_url }}"/>
                 </a>
               </div>
             </div>
@@ -621,7 +784,7 @@
 <section id="features_one1" class="mx-auto max-w-7xl relative mb-8">
   <div class="flex justify-between bg-slate-400 p-2">
     <h2 class="text-2xl">示例 8：</h2>
-    <a href="https://preline.co/examples/card-sections.html" target="_blank" class="text-blue-600 hover:underline">查看源代码</a>
+    <a href="/s/https://preline.co/examples/card-sections" target="_blank" class="text-blue-600 hover:underline">查看源代码</a>
   </div>
   <article class="bg-slate-100 py-24">
     <!-- Card Section -->
@@ -695,93 +858,80 @@
   <div class="flex justify-between bg-slate-400 p-2">
     <h2 class="text-2xl">示例 9：</h2>
     <a href="https://www.penguinui.com/components/" target="_blank" class="text-blue-600 hover:underline">查看源代码</a>
-    <a href="https://preline.co/examples/hero-sections.html" target="_blank" class="text-blue-600 hover:underline">Video Button 源代码</a>
+    <a href="/s/https://preline.co/examples/hero-sections" target="_blank" class="text-blue-600 hover:underline">Video Button 源代码</a>
   </div>
   <article class="bg-slate-100 p-12">
-    <div class="mx-auto max-w-7xl px-4 mt-8 sm:px-6 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl">
-      <div class="pt-4 pb-4">
-        <div class="flex items-center h-8 mb-4 md:mb-8 text-xl md:text-2xl font-semibold text-slate-800 dark:text-slate-200">
-          <div class="w-1 h-full mr-3 bg-primary"></div>
-          <span>视频教程</span>
+    <div class="grid grid-cols-1 gap-8 pt-6 md:grid-cols-2 xl:grid-cols-3 ">
+      <div>
+        <a href="javascript:void(0);" class="relative block overflow-hidden rounded-lg group">
+          <img src="{{ 'images/demo/i-TeliLYkrE7w-unsplash.jpg' | asset_url }}" alt="Image placeholder"
+            class="object-cover w-full max-h-[250px] h-full">
+          <div
+            class="absolute inset-0 flex items-center justify-center transition-all duration-300 bg-gray-700 bg-opacity-0 group-hover:bg-opacity-60">
+            <div
+              class="inline-flex duration-500 scale-50 text-gray-100 group-hover:opacity-100 group-hover:scale-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+        </a>
+        <div class="space-y-3 md:pt-6">
+          <h3 class="text-base font-semibold text-gray-800">Yet I feel that I never was a greater now.</h3>
+          <p class="text-gray-700">His harold condemned clay seraphs a him few all fountain, him can spent tales
+            was maidens if, and parasites. The vast to on festal none a she, lone then.</p>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <article class="group flex rounded-2xl max-w-sm flex-col overflow-hidden border border-gray-200 bg-gray-100 dark:bg-primary">
-            <div class="overflow-hidden relative"> 
-              <div class="absolute inset-0 size-full z-20">
-                <div class="flex flex-col justify-center items-center size-full">
-                  <a href="https://help.baklib.cn/get-started/install-kb-site" class="p-2 md:p-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-primary dark:border-primary dark:text-white dark:hover:bg-primary dark:focus:bg-primary" >
-                    <svg class="shrink-0 size-5 w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  </a>
-                </div>
-              </div>
-              <img src="https://tanmer.baklib.com/-/dam/assets/organization_pry3c5/eyJfcmFpbHMiOnsiZGF0YSI6eyJpZCI6NTIyMjAsInBhdGgiOiJ2aWRlby13aWtpLndlYnAiLCJ0aW1lc3RhbXAiOiIyMDI1LTAxLTEwIDIzOjI1OjA2ICswODAwIn0sImV4cCI6IjIwMjUtMDEtMTJUMTU6NTk6NTkuOTk5WiIsInB1ciI6Im9yZ2FuaXphdGlvbl9wcnkzYzUifX0--3680f4b509407f0cb2e610f26ac330a460620939684d51f2cfcad9bf856e2526/video-wiki.webp" class="object-cover transition duration-700 ease-out group-hover:scale-105" alt="a penguin robot talking with a human" />
+      </div>
+      <div>
+        <a href="javascript:void(0);" class="relative block overflow-hidden rounded-lg group">
+          <img src="{{ 'images/demo/tobias-rademacher-qdsiQ1uzxVk-unsplash.jpg' | asset_url }}"
+            alt="Image placeholder" class="object-cover w-full max-h-[250px] h-full">
+          <div
+            class="absolute inset-0 flex items-center justify-center transition-all duration-300 bg-gray-700 bg-opacity-0 group-hover:bg-opacity-60">
+            <div
+              class="inline-flex duration-500 scale-50 text-gray-100 group-hover:opacity-100 group-hover:scale-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
             </div>
-            <div class="flex p-2">
-              <a href="https://help.baklib.cn/get-started/install-kb-site" target="_blank" class="text-base">Wiki 知识库入门视频</a>
+          </div>
+        </a>
+        <div class="space-y-3 md:pt-6">
+          <h3 class="text-base font-semibold text-gray-800">I should be a single stroke at the present</h3>
+          <p class="text-gray-700">Lodato sua quali vita come medesimi sua fosse e, cospetto e procuratore quali
+            viviamo fermi udita potendo e facitore. Che.</p>
+        </div>
+      </div>
+      <div>
+        <a href="javascript:void(0);" class="relative block overflow-hidden rounded-lg group">
+          <img src="{{ 'images/demo/annie-spratt-izxpn8JeoIE-unsplash.jpg' | asset_url }}" alt="Image placeholder"
+            class="object-cover w-full max-h-[250px] h-full">
+          <div
+            class="absolute inset-0 flex items-center justify-center transition-all duration-300 bg-gray-700 bg-opacity-0 group-hover:bg-opacity-60">
+            <div
+              class="inline-flex duration-500 scale-50 text-gray-100 group-hover:opacity-100 group-hover:scale-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
             </div>
-          </article>
-          <article class="group flex rounded-2xl max-w-sm flex-col overflow-hidden border border-gray-200 bg-gray-100 dark:bg-primary">
-            <div class="overflow-hidden relative"> 
-              <div class="absolute inset-0 size-full z-20">
-                <div class="flex flex-col justify-center items-center size-full">
-                  <a href="https://help.baklib.cn/get-started/install-cms-site" class="p-2 md:p-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-primary dark:border-primary dark:text-white dark:hover:bg-primary dark:focus:bg-primary" >
-                    <svg class="shrink-0 size-5 w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  </a>
-                </div>
-              </div>
-              <img src="https://tanmer.baklib.com/-/dam/assets/organization_pry3c5/eyJfcmFpbHMiOnsiZGF0YSI6eyJpZCI6NTIyMTksInBhdGgiOiJ2aWRlby1jbXMud2VicCIsInRpbWVzdGFtcCI6IjIwMjUtMDEtMTAgMjM6MjQ6NDkgKzA4MDAifSwiZXhwIjoiMjAyNS0wMS0xMlQxNTo1OTo1OS45OTlaIiwicHVyIjoib3JnYW5pemF0aW9uX3ByeTNjNSJ9fQ--00ccf5ee228aa9835aa35bac18a41ccccb9547c8c1d2f7168eda8522e8a6dcb5/video-cms.webp" class="object-cover transition duration-700 ease-out group-hover:scale-105" alt="a penguin robot talking with a human" />
-            </div>
-            <div class="flex p-2">
-              <a href="https://help.baklib.cn/get-started/install-cms-site" target="_blank" class="text-base">CMS 系统构建入门视频</a>
-            </div>
-          </article>
-          <article class="group flex rounded-2xl max-w-sm flex-col overflow-hidden border border-gray-200 bg-gray-100">
-            <div class="overflow-hidden relative"> 
-              <div class="absolute inset-0 size-full z-20">
-                <div class="flex flex-col justify-center items-center size-full">
-                  <a href="https://help.baklib.cn/get-started/install-community" class="p-2 md:p-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-primary dark:border-primary dark:text-white dark:hover:bg-primary dark:focus:bg-primary" >
-                    <svg class="shrink-0 size-5 w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  </a>
-                </div>
-              </div>
-              <img src="https://tanmer.baklib.com/-/dam/assets/organization_pry3c5/eyJfcmFpbHMiOnsiZGF0YSI6eyJpZCI6NTIyMjEsInBhdGgiOiJ2aWRlby1jb21tdW5pdHkud2VicCIsInRpbWVzdGFtcCI6IjIwMjUtMDEtMTAgMjM6MjU6MjMgKzA4MDAifSwiZXhwIjoiMjAyNS0wMS0xMlQxNTo1OTo1OS45OTlaIiwicHVyIjoib3JnYW5pemF0aW9uX3ByeTNjNSJ9fQ--038e376d802ddbb978104480737e5fbe31a594c1c82bb49b9a8b6f30dfe2a3dd/video-community.webp" class="object-cover transition duration-700 ease-out group-hover:scale-105" alt="a penguin robot talking with a human" />
-            </div>
-            <div class="flex p-2">
-              <a href="https://help.baklib.cn/get-started/install-community" class="text-base">创建社区站点 5 分钟入门</a>
-            </div>
-          </article>
-          <article class="group flex rounded-2xl max-w-sm flex-col overflow-hidden border border-gray-200 bg-gray-100">
-            <div class="overflow-hidden relative"> 
-              <div class="absolute inset-0 size-full z-20">
-                <div class="flex flex-col justify-center items-center size-full">
-                  <a href="https://help.baklib.cn/get-started/low-code" class="p-2 md:p-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-primary dark:border-primary dark:text-white dark:hover:bg-primary dark:focus:bg-primary" >
-                    <svg class="shrink-0 size-5 w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  </a>
-                </div>
-              </div>
-              <img src="https://tanmer.baklib.com/-/dam/assets/organization_pry3c5/eyJfcmFpbHMiOnsiZGF0YSI6eyJpZCI6NTIyMTgsInBhdGgiOiJ2aWRlby1sb3ctY29kZS53ZWJwIiwidGltZXN0YW1wIjoiMjAyNS0wMS0xMCAyMzoyNDoyOCArMDgwMCJ9LCJleHAiOiIyMDI1LTAxLTEyVDE1OjU5OjU5Ljk5OVoiLCJwdXIiOiJvcmdhbml6YXRpb25fcHJ5M2M1In19--12a366ab3a02794fff66cb4409da181b9f0b030eb0502d32ddfb49fe394bb779/video-low-code.webp" class="object-cover transition duration-700 ease-out group-hover:scale-105" alt="a penguin robot talking with a human" />
-            </div>
-            <div class="flex p-2">
-              <a href="https://help.baklib.cn/get-started/low-code" class="text-base">模板代码开发入门视频</a>
-            </div>
-          </article>
-          <article class="group flex rounded-2xl max-w-sm flex-col overflow-hidden border border-gray-200 bg-gray-100">
-            <div class="overflow-hidden relative"> 
-              <div class="absolute inset-0 size-full z-20">
-                <div class="flex flex-col justify-center items-center size-full">
-                  <a class="p-2 md:p-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-primary dark:border-primary dark:text-white dark:hover:bg-primary dark:focus:bg-primary" href="#">
-                    <svg class="shrink-0 size-5 w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  </a>
-                </div>
-              </div>
-              <img src="https://penguinui.s3.amazonaws.com/component-assets/card-img-1.webp" class="object-cover transition duration-700 ease-out group-hover:scale-105" alt="a penguin robot talking with a human" />
-            </div>
-            <div class="flex p-2">
-              <a href="#" class="text-base">Penguai can teach you Javascript</a>
-            </div>
-          </article>
-          
-          
+          </div>
+        </a>
+        <div class="space-y-3 md:pt-6">
+          <h3 class="text-base font-semibold text-gray-800">I feel the presence of the who formed us</h3>
+          <p class="text-gray-700">The pillared den at domestic since day heralds mothernot. Where me such cared,
+            from deem of carnal. Muse but tales coffined were glee alone mother old did.</p>
         </div>
       </div>
     </div>
@@ -828,48 +978,3 @@
   </article>
 </section>
 
-
-<section id="features_one1" class="mx-auto max-w-7xl relative mb-12">
-  <div class="flex justify-between bg-slate-400 p-2">
-    <h2 class="text-2xl">示例 11：</h2>
-    <p>单独添加一个搜索框到任何地方</p>
-  </div>
-  <article class="bg-slate-100 p-12 mx-auto max-w-2xl">
-
-    <ul>
-      <li>
-        {% form_tag 'search', class: 'w-full' %}
-          <div class="relative">
-            <button type="submit" class="absolute inset-y-0 right-0 flex items-center pl-4 pr-3 sm:right-auto">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" > <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /> </svg>
-            </button>
-            <input
-              type="text"
-              name="{{form.keywords_field_name}}" value="{{ params.q | escape_once }}"
-              placeholder="{{ "placeholders.search" | t }}"
-              autocomplete="off"
-              class="block w-full h-6 md:h-8 lg:h-10 pl-3 pr-10 transition duration-300 ease-in-out bg-white bg-opacity-75 dark:text-primary border border-1 rounded-lg outline-none focus:ring-0 focus:border-primary sm:pl-12 sm:text-lg focus:bg-opacity-90"
-            >
-          </div>
-        {% endform_tag %}
-      </li>
-    </ul>
-  </article>
-  <p>代码</p>
-  <pre class="mx-auto max-w-7xl overflow-auto">
-    { % form_tag &#x27;search&#x27;, class: &#x27;w-full&#x27; % }
-      &lt;div class=&quot;relative&quot;&gt;
-        &lt;button type=&quot;submit&quot; class=&quot;absolute inset-y-0 right-0 flex items-center pl-4 pr-3 sm:right-auto&quot;&gt;
-          &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; class=&quot;w-5 h-5 text-primary&quot; fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot; &gt; &lt;path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z&quot; /&gt; &lt;/svg&gt;
-        &lt;/button&gt;
-        &lt;input
-          type=&quot;text&quot;
-          name=&quot;{{form.keywords_field_name}}&quot; value=&quot;{{ params.q | escape_once }}&quot;
-          placeholder=&quot;{{ &quot;placeholders.search&quot; | t }}&quot;
-          autocomplete=&quot;off&quot;
-          class=&quot;block w-full h-6 md:h-8 lg:h-10 pl-3 pr-10 transition duration-300 ease-in-out bg-white bg-opacity-75 dark:text-primary border border-1 rounded-lg outline-none focus:ring-0 focus:border-primary sm:pl-12 sm:text-lg focus:bg-opacity-90&quot;
-        &gt;
-      &lt;/div&gt;
-    { % endform_tag % }
-  </pre>
-</section>

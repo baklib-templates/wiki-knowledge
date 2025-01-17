@@ -1,0 +1,122 @@
+<div class="flex">
+    <aside x-ref="sidebar" class="flex flex-wrap flex-shrink" @click.away="mobileMenu = false"
+      @resize.debounce.100.window="forceSmallMenu()" x-data="{ 
+      smallMenu: JSON.parse(localStorage.getItem('smallMenu')),
+      mobileMenu: false,
+      forceSmallMenu() { this.smallMenu = window.innerWidth < 1280, this.mobileMenu = !window.innerWidth > 640}, 
+      isInUrl($string) { return window.location.href.match($string) },    
+    }" x-init="
+      $watch('smallMenu', (val) => localStorage.setItem('smallMenu', val));
+      $refs.sidebar.classList.remove('overflow-hidden');
+      forceSmallMenu();
+    ">
+
+      <button @click="[mobileMenu = true, smallMenu = false]" type="button"
+        class="absolute flex items-center justify-center w-8 h-8 p-1 text-gray-400 transition-colors duration-300 bg-white rounded-full sm:hidden top-4 left-4 hover:bg-gray-100">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <span class="sr-only">Open Menu</span>
+      </button>
+
+      <!-- small variant -->
+      <div x-data="{ hoverMenu: false }"
+        class="top-0 z-20 hidden w-16 h-full text-gray-400 transition-transform duration-500 bg-gray-800 sm:block "
+        :class="[(smallMenu ? 'translate-x-0 relative md:relative' : '-translate-x-16 absolute w-0 overflow-hidden') ]"
+        x-cloak>
+        <div class="flex justify-between px-4 py-3 bg-gray-900 bg-opacity-90">
+          <button @click="smallMenu = false"
+            class="flex items-center justify-center p-2 transition-all bg-transparent rounded-full hover:bg-gray-800 hover:text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" :class="[(smallMenu ? 'translate-x-0 relative' : '-translate-x-16  w-0') ]">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+            </svg>
+            <span class="sr-only">Expand menu</span>
+          </button>
+        </div>
+        <nav class="py-4">
+          <ul>
+            <li>
+              <a href="/" class="flex justify-center w-full px-4 py-2 hover:bg-gray-900 group">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <span class="sr-only">Home</span>
+              </a>
+            </li>
+        
+          </ul>
+        </nav>
+      </div>
+      <!-- small variant -->
+
+      <!-- large variant -->
+      <div class="z-20 h-full overflow-hidden text-gray-100 transition-all duration-500 bg-accent-800 opacity-0" :class="[
+          ( (smallMenu && !mobileMenu) ? '-translate-x-64  sm:relative w-0 ' : 'sm:relative translate-x-0 sm:opacity-100 '), 
+          ( (mobileMenu && !smallMenu) ? 'fixed translate-x-0 opacity-100 w-64 ' : ''),
+          ( (!mobileMenu && !smallMenu) ? '-translate-x-64  absolute w-0 sm:w-64 sm:translate-x-0 sm:opacity-100 sm:relative ' : 'fixed translate-x-0 opacity-100 '),
+        ]">
+        <div class="flex justify-between px-4 py-3 bg-gray-900 bg-opacity-90">
+          <a href="{{ site.index_path }}" class="flex items-center justify-center lg:justify-start">
+            {{ site.name }}
+          </a>
+          <button @click="[smallMenu = true]"
+            class="items-center justify-center hidden p-2 transition-all translate-x-2 bg-transparent rounded-full sm:flex hover:bg-gray-800 hover:text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+            </svg>
+          </button>
+          <button @click="[mobileMenu = false, smallMenu = true]"
+            class="flex items-center justify-center p-2 transition-all translate-x-2 bg-transparent rounded-full sm:hidden hover:bg-gray-800 hover:text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+            </svg>
+          </button>
+        </div>
+        <div class="py-4">
+          <nav>
+            <a href="/" class="flex items-center px-4 py-1 space-x-2 text-sm leading-7 hover:bg-gray-900 group">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 transition-colors duration-300 group-hover:text-blue-500" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span class="transition-colors duration-100 group-hover:text-white">{{ 'generic.index' | t }}</span>
+            </a>
+            {{ site.settings.header_menu_html }}
+            
+            {% unless page.path == '/' %}
+              <ul class="pt-5 h-full
+                  overflow-y-scroll
+                  [&::-webkit-scrollbar]:w-2
+                  [&::-webkit-scrollbar-track]:rounded-full
+                  [&::-webkit-scrollbar-track]:bg-transparent
+                  [&::-webkit-scrollbar-thumb]:rounded-full
+                  [&::-webkit-scrollbar-thumb]:bg-transparent
+                  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+                  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500" 
+                  data-controller="navtree" data-navtree-target="menuList">
+                <turbo-frame
+                  src="{{ site.nav_tree_path | append: '?selected_ids=' | append: page.id }}"
+                  id="nav_tree"
+                ></turbo-frame>
+              </ul>
+            {% endunless %}
+          </nav>
+        </div>
+      </div>
+      <!--/ large variant -->
+
+
+
+    </aside>
+  </div>

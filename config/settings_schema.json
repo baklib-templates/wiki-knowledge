@@ -1,20 +1,20 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "wiki",
+    "theme_name": "knowledge",
     "theme_label": "t:theme_label",
     "theme_version": "1.1.0",
     "theme_scope": "wiki",
     "theme_author": "Baklib",
     "theme_description": "t:theme_description",
-    "theme_documentation_url": "https://help.baklib.cn/themes/wiki",
-    "theme_support_url": "https://help.baklib.cn/themes/wiki/settings",
+    "theme_documentation_url": "https://help.baklib.cn/themes/knowledge",
+    "theme_support_url": "https://help.baklib.cn/themes/knowledge/settings",
     "theme_thumb_url": "images/theme/thumb.png",
     "theme_preview_images": [
-      "images/theme/wiki.png",
-      "images/theme/index-help-center.png",
-      "images/theme/index-list.png",
-      "images/theme/index-docs.png",
+      "images/theme/knowledge-dashboard.png",
+      "images/theme/knowledge-page.png",
+      "images/theme/faq-simple.png",
+      "images/theme/faq-toggle.png",
       "images/theme/page.png"
     ],
     "theme_languages": [
@@ -66,6 +66,13 @@
         "info": "若设置了logo，则页头显示 logo，否则显示：网站图标+站点名称"
       },
       {
+        "id": "contact_url",
+        "type": "text",
+        "label": "[联系我们]按钮 URL",
+        "default": "https://www.baklib.cn/about",
+        "info": "如果不希望显示按钮则不填内容"
+      },
+      {
         "id": "company_name",
         "label": "t:settings_schema.generic.settings.company_name.label",
         "type": "text",
@@ -79,55 +86,11 @@
         "default": "t:settings_schema.generic.settings.copyright_info.default"
       },
       {
-        "id": "screen_width",
-        "type": "radio",
-        "label": "页面宽度设置",
-        "choices": [{"label":"窄（max-width: 1024px）","value":"max-w-screen-lg"},{"label":"适中（max-width: 1280px;）","value":"max-w-screen-xl"},{"label":"宽（max-width: 1536px;）","value":"max-w-screen-2xl"}],
-        "default": "max-w-screen-xl"
-      },
-      {
-        "id": "page_bg_type",
-        "type": "radio",
-        "label": "页面背景设置",
-        "choices": [{"label":"无背景色","value":"0"},{"label":"primary+secondary变体渐变","value":"1"},{"label":"primary主色渐变","value":"2"}],
-        "default": "0",
-        "info": "* 跟随站点【主题颜色】设置的 primary/secondary 颜色"
-      },
-      {
-        "id": "show_channel_section",
+        "id": "is_allow_aside",
         "type": "checkbox",
-        "label": "首页显示栏目导航",
-        "default": true
-      },
-      {
-        "id": "show_card_icon",
-        "type": "checkbox",
-        "label": "首页显示栏目ICON图标",
-        "default": true
-      },
-      {
-        "id": "show_newest_section",
-        "type": "checkbox",
-        "label": "首页显示最新 10 条",
+        "label": "是否展示左侧边栏导航",
+        "info": "开启后每个页面都有左侧边栏",
         "default": false
-      },
-      {
-        "id": "show_hottest_section",
-        "type": "checkbox",
-        "label": "首页显示最热 10 条",
-        "default": true
-      },
-      {
-        "id": "is_allow_published_at",
-        "type": "checkbox",
-        "label": "页面是否展示发布日期",
-        "default": true
-      },
-      {
-        "id": "is_allow_author",
-        "type": "checkbox",
-        "label": "页面是否展示作者信息",
-        "default": true
       }
     ]
   },

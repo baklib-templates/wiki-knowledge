@@ -1,4 +1,4 @@
-{% assign screen_width = site.settings.screen_width.value |  default: 'max-w-screen-xl' %}
+{% assign default_icon = 'images/icon.svg' | asset_url %}
 {% assign card_pages = site.pages['/'].children_in_nav_menu  | limit: 24 %}
 
 <!--prepare class for yarn build -->
@@ -6,232 +6,120 @@
 <div class="mx-auto max-w-screen-xl "></div>
 <div class="mx-auto max-w-screen-2xl"></div>
 
-<!-- Feature One Section -->
-{% if site.settings.features_one %}
-  <section class="mx-auto {{ screen_width }} px-4 mt-8 sm:px-6">
-    {{ site.settings.features_one }}
-  </section>
-{% endif %}
+{% comment %} 页面内容部分 {% endcomment %}
+<main class="flex flex-row min-h-screen  relative" style="background-image: url({{ page.settings.hero_image_url }})">
 
-<section class="relative" style="background-image: url({{ page.settings.hero_image_url }})">
-  {% if page.settings.bg_type.value == '1' %}
+  {% if page.settings.bg_type.value == '2' %}
     <div class="absolute inset-x-0 overflow-hidden -top-10 -z-10 transform-gpu blur-3xl sm:-top-80" aria-hidden="true">
       <div class="relative left-[calc(50%-11rem)] aspect-[1200/800] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary to-secondary opacity-30 sm:left-[calc(50%-20rem)] sm:w-[82.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
     </div>
+  {% elsif page.settings.bg_type.value == '1' %}
+    <div class="absolute w-full h-full -z-10 bg-gradient-to-b from-primary/35 from-5% via-gray-100 via-20% to-accent/35 to-85% dark:from-primary dark:to-accent"></div>
   {% else %}
-    <div class="absolute w-full h-full -z-10 bg-gradient-to-b from-primary/35 from-5% via-white via-20% to-accent/35 to-85% dark:from-primary dark:to-accent"></div>
+    <div class="absolute w-full h-full -z-10 bg-gradient-to-b from-gray-100 from-5% via-gray-100 via-20% to-gray-100 to-85% dark:from-primary dark:to-accent"></div>
   {% endif %}
   <!-- Hero Section -->
-  <section class="mx-auto max-w-5xl p-12 md:p-24">
-    <div class="container flex flex-col h-full px-4 mx-auto">
-      <div class="flex flex-col items-center justify-center flex-grow">
-        <h1 class="py-2 my-4 leading-8 text-2xl md:text-4xl font-bold transition duration-500 md:mt-0 text-shadow">
-          {{ page.settings.description }}
-        </h1>
-        <div class="z-0 flex flex-col items-center justify-center w-full md:w-2/3">
-          {% form_tag 'search', class: 'w-full' %}
-            <div class="relative">
-              <button type="submit" class="absolute inset-y-0 right-0 flex items-center pl-4 pr-3 sm:right-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" > <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /> </svg>
+  
+  {% if site.settings.is_allow_aside %}
+    {%# render 'aside', page: page %}
+  {% endif  %}
+
+  <div class="flex-1 w-0">
+    
+    {% render 'header' %}
+
+    <div class="max-w-screen-xl px-6 py-8 mx-auto space-y-6 xl:px-12 xl:py-12">
+        <div class="max-w-screen-md mx-auto">
+          <h2 class="text-2xl font-semibold text-center text-gray-800 lg:text-3xl xl:text-4xl">
+            {{ page.settings.slogan | default: 'Frequently Asked Questions' }}</h2>
+          <p class="mt-2 text-sm text-center text-gray-700">
+            {{ page.settings.description | default: '' }}
+          </p>
+          <div class="flex justify-center pt-6 pb-3 mt-5 space-x-3 lg:py-3">
+            <!-- Feature One Section -->
+            {% if site.settings.features_one %}
+              {{ site.settings.features_one }}
+            {% else %}
+              <button
+                class="flex items-center px-4 py-3 space-x-2 text-sm font-semibold leading-4 transition-colors duration-300 bg-primary rounded-md hover:bg-primary-700 text-primary-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                  </path>
+                </svg>
+                <span>
+                  Chat <span class="hidden md:inline">with Support</span>
+                </span>
               </button>
-              <input
-                type="text"
-                name="{{form.keywords_field_name}}" value="{{ search.keywords | escape_once }}"
-                placeholder="{{ "placeholders.search" | t }}"
-                autocomplete="off"
-                class="block w-full h-10 md:h-12 lg:h-14 pl-3 pr-10 transition duration-300 ease-in-out bg-white bg-opacity-75 dark:text-primary border border-transparent rounded-full outline-none focus:ring-0 focus:border-primary sm:pl-12 sm:text-lg focus:bg-opacity-90"
-              >
-            </div>
+              <button
+                class="flex items-center px-4 py-3 space-x-2 text-sm font-semibold leading-4 text-gray-700 transition-colors duration-300 bg-gray-300 rounded-md hover:bg-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                  </path>
+                </svg>
+                <span><span class="hidden md:inline">Create</span> Support Ticket</span>
+              </button>
+            {% endif %}
+          </div>
+        </div>
+        <div class="flex items-center justify-between space-x-4">
+          {% form_tag 'search', class: 'relative flex-1' %}
+            <input type="text" name="{{form.keywords_field_name}}" value="{{ search.keywords | escape_once }}"
+              placeholder="{{ "placeholders.search" | t }}"
+              class="block w-full py-3 pl-12 placeholder-gray-400 transition-colors duration-300 border-0 border-transparen peer focus:border-transparent ring-transparent focus:ring-transparent focus:ring-opacity-80  text-sm">
+            <button
+              class="absolute flex items-center justify-center w-8 h-8 p-1 text-gray-600 transition-all duration-300 bg-transparent rounded-full left-3 top-2 hover:bg-gray-100 peer-focus:text-blue-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
           {% endform_tag %}
-
-          <!-- 热门标签 -->
-          {% if page.settings.tags.size > 0 %}
-            <div class="items-center justify-start hidden w-full mt-4 md:flex flex-wrap">
-              <div class="inline-block text-sm text-gray-500 dark:text-gray-100">
-                <span class="mx-2">{{ 'generic.tags' | t }}：</span>
-                {% for tag in page.settings.tags %}
-                  <a
-                    href="{{ tag.path }}"
-                    data-turbo-frame="_top"
-                    class="mr-2 hover:text-primary focus:ring hover:-translate-y-[2px] min-w-12"
-                  >
-                    {{ tag.name }}
-                  </a>
-                {% endfor %}
-              </div>
-            </div>
-          {% endif %}
-
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Started 3 Channel Section -->
-  <section class="bg-transparent">
-    <div class="mx-auto {{ screen_width }} px-4 sm:px-6">
-      <div class="items-center text-center my-4 md:mb-8">
-        <h2 class="text-xl md:text-2xl font-semibold">{{ page.settings.channel_one_name |  default: '新手入门' }}</h2>
-      </div>
-      <div class="items-start lg:max-w-none grid grid-cols-3 gap-8 md:grid-cols-3 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-16">
-        {% for card_page in card_pages | limit:3 %}
-          <!-- Card -->
-          <a href="{{ card_page.path }}" class="flex flex-col h-full bg-gradient-to-b from-secondary-100 from-5% to-primary-50/80 to-80% dark:from-secondary dark:to-primary hover:from-secondary-100 hover:to-primary-100 rounded-xl overflow-hidden">
-            <!-- Card Content -->
-            <div class="flex-1 flex flex-col p-0 md:p-6 relative">
-                <!-- Card body -->
-                <div class="flex-1">
-                    <!-- Header -->
-                    <header class="mb-2 p-4 md:p-0 z-10">
-                      <div class="flex items-center justify-start">
-                        <h3 class="line-clamp-2 text-md md:text-xl md:font-semibold ">{{ card_page.link_text }}</h3>
-                      </div>
-                    </header>
-                    <!-- Content -->  
-                    <div class="h-12 md:h-44">
-                      <span class="hidden md:flex text-gray-500 dark:text-gray-300">{{ card_page.settings.description }}</span>
-                      <div class="absolute -bottom-0 -right-0 opacity-60"><img src="{{ card_page.settings.icon }}" class="object-cover h-12 md:h-40"/></div>
-                    </div>
+        <div class="grid flex-1 gap-6 mt-6 xl:grid-cols-2">
+          {% for item in card_pages %}
+            {% assign sub_pages_count = item.pages | size %}
+            {% assign desc = item.settings.content | truncate: 70 | strip_html  %}
+            <a href="{{ item.path }}"
+              class="flex items-start justify-between px-4 pt-6 pb-3 transition-all duration-300 bg-white rounded-md shadow-sm shadow-gray-200 hover:-translate-y-1 hover:shadow-md ">
+              <div class="flex items-start space-x-4">
+                <div class="flex items-center justify-center w-12 h-12 text-primary-600 bg-primary-100 rounded-md md:w-16 md:h-16">
+                  {% if item.settings.icon %}
+                    <img src="{{ item.settings.icon | default: default_icon }}" class="h-8"/> 
+                  {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                    </svg>
+                  {% endif %}
                 </div>
-            </div>
-          </a>
-        {% endfor %}
-      </div>      
-    </div>
-  </section>
-
-  <!-- Channel Section -->
-  {% if site.settings.show_channel_section %}
-    <section class="bg-transparent py-12">
-      <div class="mx-auto {{ screen_width }} px-4 sm:px-6">
-        <div class="items-center text-center my-4 md:mb-8">
-          <h2 class="text-xl md:text-2xl font-semibold">{{ page.settings.channel_two_name |  default: '栏目导航' }}</h2>
-        </div>
-        <div class="items-start lg:max-w-none grid grid-cols-3 gap-2 md:gap-4 md:grid-cols-4 lg:grid-cols-4">
-          {% for card_page in card_pages, offset: 3 %}
-            <a href="{{ card_page.path }}" class="flex flex-col h-full bg-accent-100 dark:bg-primary hover:bg-opacity-50 rounded-xl overflow-hidden">
-              <!-- Card Content -->
-              <div class="flex-1 flex flex-col p-2 md:p-6">
-                  <!-- Card body -->
-                  <div class="flex-1">
-                      <!-- Header -->
-                      <header class="mb-2">
-                        <div class="flex flex-col text-center md:text-left items-center md:items-start">
-                          {% if site.settings.show_card_icon %}
-                            {% if card_page.settings.icon %}
-                              <span class="mb-2"><img src="{{ card_page.settings.icon }}" class="h-10"/> </span>
-                            {% else %}
-                              <span class="mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10 w-10 h-10 text-primary dark:text-white">
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 0 1 2.25-2.25h7.5A2.25 2.25 0 0 1 18 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 0 0 4.5 9v.878m13.5-3A2.25 2.25 0 0 1 19.5 9v.878m0 0a2.246 2.246 0 0 0-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0 1 21 12v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6c0-.98.626-1.813 1.5-2.122" />
-                                </svg>
-                              </span>
-                            {% endif %}
-                          {% endif %}
-                          <h3 class="line-clamp-1 text-md md:text-xl md:font-semibold">{{ card_page.link_text }}</h3>
-                        </div>
-                      </header>
-                      <!-- Content -->
-                      <div class="my-4 relative">
-                        <span class="hidden md:flex text-sm text-gray-500 dark:text-gray-300">{{ card_page.settings.description }}</span>
-                      </div>
-                  </div>
+                <div class="flex-1">
+                  <span class="font-semibold text-gray-800">{{ item.link_text }}</span>
+                  <span class="block mt-1 text-sm text-gray-700">{{ sub_pages_count }} Articles</span>
+                  <span class="block mb-3 text-sm text-gray-600">{{ item.settings.description |  default: desc }}</span>
+                </div>
               </div>
             </a>
           {% endfor %}
-        </div>      
-      </div>
-    </section>
-  {% endif %}
-
-  <!-- Newest List Section -->
-  {% if site.settings.show_newest_section %}
-    {% assign newest_pages = site.pages['/'].pages_in_list | order_by: '-created_at' | limit: 10 %}
-    <section class="bg-transparent py-4">
-      <div class="mx-auto {{ screen_width }} px-4 sm:px-6 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl">
-        <div class="pt-4 pb-4">
-          
-          <div class="flex items-center h-8 mb-2 text-xl md:text-2xl font-semibold text-slate-800 dark:text-slate-200">
-            <div class="w-1 h-full mr-3 bg-primary"></div>
-            <span>{{ 'generic.newest_pages' | t }}</span>
-          </div>
-          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 p-4 gap-y-4 overflow-hidden">
-            {% for sub_page in newest_pages %}
-              <a class="flex items-center justify-between transition transform group"
-                href="{{ sub_page.path }}">
-                <div class="flex">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 transition group-hover:text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                  </svg>
-                  <h6 class="ml-2 transition text-gray-550 group-hover:text-primary">
-                    {{ sub_page.link_text }}
-                  </h6>
-                </div>
-
-                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-5 h-5 mr-4 text-gray-500 dark:text-gray-300 transition group-hover:text-primary group-hover:translate-x-3 md:transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
-            {% endfor %}
-          </div>
         </div>
       </div>
-    </section>
-  {% endif %}
-
-  <!-- Hottest Section-->
-  {% if site.settings.show_hottest_section %}
-    {% assign hottest_pages = site.pages['/'].pages_in_list | order_by: '-visits_count' | limit: 10 %}
-    <section class="bg-transparent">
-      <div class="mx-auto {{ screen_width }} px-4 mt-8 sm:px-6">
-        <div class="pt-4 pb-8 mt-8 lg:mt-14 lg:pb-12">
-          
-          <div class="flex items-center h-8 mb-4 text-xl md:text-2xl font-semibold text-slate-800 dark:text-slate-200">
-            <div class="w-1 h-full mr-3 bg-primary"></div>
-            <span>{{ 'generic.hot_pages' | t }}</span>
-          </div>
-          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 gap-y-4">
-            {% for faq_page in hottest_pages %}
-              <a class="flex items-center justify-between transition transform group"
-                href="{{ faq_page.path }}">
-                <div class="flex">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 transition group-hover:text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                  </svg>
-                  <h6 class="ml-2 transition text-gray-550 group-hover:text-primary">
-                    {{ faq_page.link_text }}
-                  </h6>
-                </div>
-
-                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-5 h-5 mr-4 text-gray-500 dark:text-gray-300 transition group-hover:text-primary group-hover:translate-x-3 md:transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    </section>
-  {% endif %}
-
-  <!-- Feature Two Section -->
-  {% if site.settings.features_two %}
-    <section class="mx-auto {{ screen_width }} px-4 mt-8 sm:px-6">
-      {{ site.settings.features_two }}
-    </section>
-  {% endif %}
-
-</section>
-
-{% render 'footer', settings: site.settings %}
+    
+      {% render 'footer', settings: site.settings %}
+  </div>
+</main>
 
 {% schema %}
   {
-    "name": "Docs Center",
-    "description": "Ideal for feature-rich product user manuals",
-    "thumb_url": "images/theme/index-docs.png",
+    "name": "Knowledge Dashboard",
+    "description": "the knowledge dashboard index",
+    "thumb_url": "images/theme/knowledge-dashboard.png",
     "preview_image_urls": [
-      "images/theme/index-docs.png"
+      "images/theme/knowledge-dashboard.png"
     ],
     "sub_page_templates": ["page"],
     "settings": [
@@ -247,14 +135,20 @@
           "id": "bg_type",
           "type": "radio",
           "label": "背景颜色样式",
-          "choices": [{"label":"primary主色渐变","value":"0"},{"label":"primary+secondary变体渐变","value":"1"}],
+          "choices": [{"label":"灰色","value":"0"},{"label":"primary主色渐变","value":"1"},{"label":"primary+secondary变体渐变","value":"2"}],
           "default": "0",
           "info": "*  跟随站点【主题颜色】设置的 primary/secondary 颜色"
         },
         {
+          "id": "slogan",
+          "type": "text",
+          "label": "站点首页口号",
+          "default": "Frequently Asked Questions"
+        },
+        {
           "id": "description",
           "type": "text",
-          "label": "t:settings_schema.generic.settings.description.label",
+          "label": "站点首页一句话描述",
           "default": "👋 What Can We Help?"
         },
         {
