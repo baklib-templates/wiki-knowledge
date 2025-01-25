@@ -3,19 +3,19 @@
 <main class="flex flex-row min-h-screen bg-gray-100">
 
   {% if site.settings.is_allow_aside %}
-    {% render 'aside', page: page %}
+    {%# render 'aside', page: page %}
   {% endif  %}
 
   <div class="flex-1">
 
     <section class="flex flex-col  min-h-screen justify-between">
-      {% render 'header' %}
+      {% render 'header', page: page %}
 
-      <div> 
+      <div class="mx-auto max-w-screen-2xl"> 
         <div class="px-6 pt-4 bg-transparent xl:pt-12 xl:px-12">
           <nav class="flex justify-between mx-auto">
             <div class="flex items-center space-x-4 divide-x-2 divide-gray-200">
-              <span class="text-lg font-semibold text-gray-800">
+              <span class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-800">
                 {{ page.settings.slogan | default: 'Frequently Asked Questions' }}
               </span>
               <div class="items-center hidden pl-4 space-x-2 text-sm md:flex">
@@ -42,18 +42,18 @@
                   </button>
                   {% endform_tag %}
               </div>
-              <div class="grid flex-1 gap-6 mt-6 xl:grid-cols-2">
+              <div class="grid flex-1 gap-6 mt-6 sm:grid-cols-2 xl:grid-cols-3">
                 {% for item in card_pages %}
                   {% assign sub_pages_count = item.pages | size %}
                   {% assign desc = item.settings.content | truncate: 70 | strip_html  %}
                   <a href="{{ item.path }}"
                     class="flex items-start justify-between px-4 pt-6 pb-3 transition-all duration-300 bg-white rounded-md shadow-sm shadow-gray-200 hover:-translate-y-1 hover:shadow-md ">
                     <div class="flex items-start space-x-4">
-                      <div class="flex items-center justify-center w-12 h-12 text-primary-600 bg-primary-100 rounded-md md:w-16 md:h-16">
+                      <div class="flex items-center justify-center w-12 h-12 text-primary bg-gray-100 rounded-md md:w-16 md:h-16">
                         {% if item.settings.icon %}
-                          <img src="{{ item.settings.icon | default: default_icon }}" class="h-8"/> 
+                          <img src="{{ item.settings.icon | default: default_icon }}" class="h-10"/> 
                         {% else %}
-                          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24"
                           stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />

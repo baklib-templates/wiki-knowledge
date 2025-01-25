@@ -18,7 +18,7 @@
   {% endif  %}
 
   <div class="flex-1 w-0">
-    {% render 'header' %}
+    {% render 'header', page: page %}
     
     <turbo-frame id="main-content" data-turbo-action="advance" :class="">
       <div class="max-w-screen-xl px-0 sm:px-6 py-4 mx-auto space-y-6 xl:px-12 xl:py-8">

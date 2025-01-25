@@ -1,67 +1,67 @@
 {% assign default_icon = 'images/icon.svg' | asset_url %}
 
-<header class="shadow-sm shadow-gray-200">
-  <div class="flex justify-end px-6 py-3 bg-white border-b border-gray-200 sm:justify-between xl:px-12">
-    <nav class="items-center flex-1 mx-auto space-x-2 text-sm text-gray-700 sm:flex">
-      <!-- Logo -->
-      <a href="{{site.index_path}}" aria-label="{{ site.name }}" class="flex items-center ml-6 sm:ml-0">
-        {% if site.settings.logo_url %}
-          <span><img src="{{ site.settings.logo_url }}" class="h-8 md:h-10" alt="{{ site.name }}"/></span>
-        {% else %}
-          <span><img src="{{ site.favicon_url | default: default_icon }}" class="h-8" alt="Docs" /></span>
-          <span class="hidden ml-2 text-xl font-bold text-slate-600 md:block">{{ site.name }}</span>
-        {% endif %}
-      </a>
-    </nav>
-    <div class="flex items-center space-x-2">
-      <div class="">
-        {% unless site.settings.is_allow_aside %}
+<header class="shadow-sm shadow-gray-200 bg-white border-b border-gray-200 dark:bg-navy-800 dark:border-navy-700">
+  <div class="max-w-screen-2xl mx-auto">
+    <div class="flex justify-end px-6 py-3 sm:justify-between xl:px-12">
+      <nav class="items-center flex-1 mx-auto space-x-2 text-sm text-gray-700 sm:flex">
+        <!-- Logo -->
+        <a href="{{site.index_path}}" aria-label="{{ site.name }}" class="flex items-center ml-6 sm:ml-0">
+          {% if site.settings.logo_url %}
+            <span><img src="{{ site.settings.logo_url }}" class="h-8 md:h-10" alt="{{ site.name }}"/></span>
+          {% else %}
+            <span><img src="{{ site.favicon_url | default: default_icon }}" class="h-8" alt="Docs" /></span>
+            <span class="hidden ml-2 text-xl font-bold text-slate-600 md:block">{{ site.name }}</span>
+          {% endif %}
+        </a>
+      </nav>
+      <div class="flex items-center space-x-2">
+        <div class="">
           {% render 'custom_menu' %}
-        {% endunless %}
-      </div>
-      <div>
-        {% form_tag 'search', class: 'relative flex-1 border' %}
-          <input type="text" name="{{form.keywords_field_name}}" value="{{ search.keywords | escape_once }}"
-            placeholder="{{ "placeholders.search" | t }}"
-            class="block w-full py-3 pl-12 placeholder-gray-400 transition-colors duration-300 border-0 border-transparen peer focus:border-transparent ring-transparent focus:ring-transparent focus:ring-opacity-80  text-sm">
-          <button
-            class="absolute flex items-center justify-center w-8 h-8 p-1 text-gray-600 transition-all duration-300 bg-transparent rounded-full left-3 top-2 hover:bg-gray-100 peer-focus:text-blue-600">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </button>
-        {% endform_tag %}
-      </div>
-      {% if current_user %}
+        </div>
         <div>
-          <div data-controller="dropdown" class="relative">
-            <button type="button" data-action="dropdown#toggle click@window->dropdown#hide">
-              {% if current_user.image %}
-                <img src="{{current_user.image}}" class="w-10 h-10 rounded-full">
-              {% else %}
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 rounded-full">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                </svg>
-              {% endif %}
+          {% form_tag 'search', class: 'relative flex-1 border rounded-md' %}
+            <input type="text" name="{{form.keywords_field_name}}" value="{{ search.keywords | escape_once }}"
+              placeholder="{{ "placeholders.search" | t }}"
+              class="block w-full max-w-44 py-2 pl-12 placeholder-gray-400 transition-colors duration-300 border-transparent rounded-md focus:border-transparent ring-transparent focus:ring-transparent focus:ring-opacity-80  text-sm">
+            <button
+              class="absolute flex items-center justify-center w-8 h-8 p-1 text-gray-600 transition-all duration-300 bg-transparent rounded-md left-2 top-1 hover:bg-gray-100 peer-focus:text-blue-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
             </button>
-            <div
-              data-dropdown-target="menu"
-              class="hidden transition transform origin-top-right absolute right-0 rounded-md border border-slate-150 bg-white py-1.5 font-inter dark:border-navy-500 dark:bg-navy-700 px-2 min-w-[10rem] shadow-lg"
-              data-transition-enter-from="opacity-0 scale-95"
-              data-transition-enter-to="opacity-100 scale-100"
-              data-transition-leave-from="opacity-100 scale-100"
-              data-transition-leave-to="opacity-0 scale-95"
-            >
-              <div class="py-2 text-gray-700">{{ current_user.name }}</div>
-              {% form_tag 'sign_out' %}
-                <button type="submit" class="py-2 text-gray-700 hover:text-primary">退出登录</button>
-              {% endform_tag %}
+          {% endform_tag %}
+        </div>
+        {% if current_user %}
+          <div>
+            <div data-controller="dropdown" class="relative">
+              <button type="button" data-action="dropdown#toggle click@window->dropdown#hide">
+                {% if current_user.image %}
+                  <img src="{{current_user.image}}" class="w-10 h-10 rounded-full">
+                {% else %}
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 rounded-full">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  </svg>
+                {% endif %}
+              </button>
+              <div
+                data-dropdown-target="menu"
+                class="hidden transition transform origin-top-right absolute right-0 rounded-md border border-slate-150 bg-white py-1.5 font-inter dark:border-navy-500 dark:bg-navy-700 px-2 min-w-[10rem] shadow-lg"
+                data-transition-enter-from="opacity-0 scale-95"
+                data-transition-enter-to="opacity-100 scale-100"
+                data-transition-leave-from="opacity-100 scale-100"
+                data-transition-leave-to="opacity-0 scale-95"
+              >
+                <div class="py-2 text-gray-700">{{ current_user.name }}</div>
+                {% form_tag 'sign_out' %}
+                  <button type="submit" class="py-2 text-gray-700 hover:text-primary">退出登录</button>
+                {% endform_tag %}
+              </div>
             </div>
           </div>
-        </div>
-      {% endif %}
+        {% endif %}
+      </div>
     </div>
   </div>
 </header>

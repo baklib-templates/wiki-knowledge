@@ -7,7 +7,7 @@
 <div class="mx-auto max-w-screen-2xl"></div>
 
 {% comment %} 页面内容部分 {% endcomment %}
-<main class="flex flex-row min-h-screen  relative" style="background-image: url({{ page.settings.hero_image_url }})">
+<main class="flex flex-row min-h-screen relative" style="background-image: url({{ page.settings.hero_image_url }});">
 
   {% if page.settings.bg_type.value == '2' %}
     <div class="absolute inset-x-0 overflow-hidden -top-10 -z-10 transform-gpu blur-3xl sm:-top-80" aria-hidden="true">
@@ -26,7 +26,7 @@
 
   <div class="flex-1 w-0">
     
-    {% render 'header' %}
+    {% render 'header', page: page %}
 
     <div class="max-w-screen-xl px-6 py-8 mx-auto space-y-6 xl:px-12 xl:py-12">
         <div class="max-w-screen-md mx-auto">
@@ -87,7 +87,7 @@
             <a href="{{ item.path }}"
               class="flex items-start justify-between px-4 pt-6 pb-3 transition-all duration-300 bg-white rounded-md shadow-sm shadow-gray-200 hover:-translate-y-1 hover:shadow-md ">
               <div class="flex items-start space-x-4">
-                <div class="flex items-center justify-center w-12 h-12 text-primary-600 bg-primary-100 rounded-md md:w-16 md:h-16">
+                <div class="flex items-center justify-center w-12 h-12 text-primary bg-gray-100 rounded-md md:w-16 md:h-16">
                   {% if item.settings.icon %}
                     <img src="{{ item.settings.icon | default: default_icon }}" class="h-8"/> 
                   {% else %}
@@ -100,7 +100,7 @@
                 </div>
                 <div class="flex-1">
                   <span class="font-semibold text-gray-800">{{ item.link_text }}</span>
-                  <span class="block mt-1 text-sm text-gray-700">{{ sub_pages_count }} Articles</span>
+                  <span class="block mt-1 text-sm text-gray-700">{{ sub_pages_count }} {{ 'generic.articles_count' | t }}</span>
                   <span class="block mb-3 text-sm text-gray-600">{{ item.settings.description |  default: desc }}</span>
                 </div>
               </div>
@@ -157,20 +157,6 @@
           "multiple": true,
           "label": "t:settings_schema.page.settings.tags.label",
           "info": "设置以后，标签列表会显示在首页搜索栏下方"
-        },
-        {
-          "id": "channel_one_name",
-          "type": "text",
-          "label": "版块一名称",
-          "default": "新手入门",
-          "info": "版块一显示前 3 个栏目 Card"
-        },
-        {
-          "id": "channel_two_name",
-          "type": "text",
-          "label": "版块二名称",
-          "default": "专题推荐",
-          "info": "版块二显示剩下的所有栏目 Card"
         }
       ]
   }

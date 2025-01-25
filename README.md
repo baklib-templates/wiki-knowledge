@@ -1,4 +1,4 @@
-# Baklib knowledge Template
+# Baklib knowledge Wiki Template
 
 A multiple page wiki template which includes faqs, cards, knowledge dashboard and documentations.
 

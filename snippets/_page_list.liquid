@@ -1,11 +1,19 @@
 <div class="bg-white rounded-md shadow-sm shadow-gray-200 ">
   <div class="flex flex-col px-4 py-4 border-b border-gray-200 lg:px-6">
-    <div>
-      <h2 class="text-xl lg:text-2xl font-semibold text-gray-800">{{ page.settings.title }}</h2>
+    <div class="flex items-center space-x-4">
+      {% if page.settings.icon %}
+        <img src="{{ page.settings.icon }}" class="w-16 h-16 rounded-md" alt="{{ page.link_text }}"/>
+      {% endif %}
+      <div>
+        <div>
+          <h2 class="text-xl lg:text-2xl font-semibold text-gray-800">{{ page.settings.title }}</h2>
+        </div>
+        <div class="text-sm text-gray-600">
+          {{ page.settings.description }}
+        </div>
+      </div>
     </div>
-    <div class="text-sm text-gray-600">
-      {{ page.settings.description }}
-    </div>
+    
   </div>
   <!--TODO: alpine.js auto searching -->
   <div class="flex items-center justify-between space-x-4 hidden">

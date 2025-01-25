@@ -4,35 +4,35 @@
 <main class="flex flex-row bg-gray-100">
 
   {% if site.settings.is_allow_aside %}
-    {% render 'aside', page: page %}
+    {%# render 'aside', page: page %}
   {% endif  %}
 
   <div class="flex-1">
 
     <section class="flex flex-col justify-between">
-      {% render 'header' %}
+      {% render 'header', page: page %}
 
       <div class="max-w-screen-xl px-6 py-8 mx-auto space-y-6 xl:px-12">
-        <div class="relative overflow-hidden bg-white rounded-md shadow-sm shadow-gray-200">
-          <div class="relative h-24 overflow-hidden shadow-sm shadow-gray-200 rounded-t-md sm:h-32 md:h-48">
+        <div class="relative overflow-hidden bg-white rounded-md shadow-sm shadow-primary-100">
+          <div class="relative h-24 overflow-hidden shadow-sm shadow-primary-50 rounded-t-md sm:h-32 md:h-48">
             {% if page.settings.hero_image_url %}
               <img src="{{ page.settings.hero_image_url }}" alt="{{ site.name }}" class="w-full">
             {% else %}
               <img src="{{ 'images/demo/tim-mossholder-bo3SHP58C3g-unsplash.jpg' | asset_url }}" alt="{{ site.name }}" class="w-full">
             {% endif %}
-            <div class="absolute inset-0 w-full bg-gradient-to-t from-gray-700 bg-opacity-10">&nbsp;</div>
+            <div class="absolute inset-0 w-full bg-gradient-to-t from-primary-100 bg-opacity-10">&nbsp;</div>
             <div class="absolute left-0 z-20 flex flex-col items-start justify-start px-4 bottom-6 lg:px-8">
-              <h2 class="text-2xl lg:text-3xl font-semibold text-white">{{ page.settings.slogan | default: 'Frequently Asked Questions' }}</h2>
-              <span class="block text-xs font-semibold tracking-wider uppercase transition-colors duration-300 text-gray-50 ">
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold">{{ page.settings.slogan | default: 'Frequently Asked Questions' }}</h2>
+              <span class="block text-xs font-semibold tracking-wider uppercase transition-colors duration-300 text-gray-500 ">
                 {{ page.settings.description | default: '' }}</span>
             </div>
           </div>
 
-          <div class="overflow-x-auto">
+          <div class="overflow-x-auto bg-primary">
             {% if page.settings.tags.size > 0 %}
-              <nav class="flex items-center px-4 py-4 space-x-1 text-sm font-semibold text-gray-700 lg:px-6">
+              <nav class="flex items-center px-4 py-2 space-x-1 text-sm font-semibold text-gray-700 lg:px-6">
                 {% for tag in page.settings.tags %}
-                  <a href="{{ tag.path }}" class="flex items-center justify-center px-4 py-3 -ml-2 rounded-full hover:bg-gray-100">{{ tag.name }}</a>
+                  <a href="{{ tag.path }}" class="flex items-center text-white justify-center px-4 py-3 -ml-2 rounded-full hover:bg-gray-600">{{ tag.name }}</a>
                 {% endfor %}
               </nav>
             {% endif %}
@@ -128,20 +128,6 @@
           "default": 5,
           "label": "首页列表展示页面数量",
           "info": ""
-        },
-        {
-          "id": "channel_one_name",
-          "type": "text",
-          "label": "版块一名称",
-          "default": "栏目导览",
-          "info": "版块一显示所有栏目快捷方式"
-        },
-        {
-          "id": "channel_two_name",
-          "type": "text",
-          "label": "版块二名称",
-          "default": "专题推荐",
-          "info": "版块二显示所有栏目 Card"
         }
       ]
   }

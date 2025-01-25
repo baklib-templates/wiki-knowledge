@@ -1,15 +1,8 @@
 {% assign default_icon = 'images/icon.svg' | asset_url %}
-
-{% comment %} 左侧 NavBar只显示当前父级栏目，具体做法： nav_tree_path 添加一个 parent 参数即可。 {% endcomment %}
-{% unless page.parent.path == '/' %}
-  {% assign parent = page.parent %}
-{% else %}
-  {% assign parent = page %}
-{% endunless %}
+{% assign default_avatar_url = 'images/avatar.svg' | asset_url %}
 
 {% assign sub_pages = page.children_in_list %}
 {% assign sub_pages_size = sub_pages | size %}
-{% assign default_avatar_url = 'images/avatar.svg' | asset_url %}
 
 {% comment %} 页面内容部分 {% endcomment %}
 <main class="flex flex-row min-h-screen bg-gray-100">
@@ -18,10 +11,10 @@
   {% endif  %}
 
   <div class="flex-1 w-0">
-    {% render 'header' %}
-    
+    {% render 'header', page: page %}
+
     <turbo-frame id="main-content" data-turbo-action="advance" :class="">
-      <div class="max-w-screen-x min-h-screen px-0 sm:px-6 py-4 mx-auto space-y-6 xl:px-12 xl:py-8">
+      <div class="max-w-screen-2xl min-h-screen px-0 sm:px-6 py-4 mx-auto space-y-6 xl:px-12 xl:py-8">
 
         {% if false %}
           <div class="relative overflow-hidden bg-white rounded-md shadow-sm shadow-gray-200">
